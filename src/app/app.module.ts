@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 <<<<<<< HEAD
 import { BallotComponent } from './ballot/ballot.component';
+import { RegisterComponent } from './register/register.component';
 =======
 import { NavComponent } from './nav/nav.component';
 >>>>>>> 3d3534ac235cecb792676350e2d579e35cf23473
@@ -15,7 +16,8 @@ import { NavComponent } from './nav/nav.component';
     AppComponent,
     LoginComponent,
 <<<<<<< HEAD
-    BallotComponent
+    BallotComponent,
+RegisterComponent
 =======
     NavComponent
 >>>>>>> 3d3534ac235cecb792676350e2d579e35cf23473
