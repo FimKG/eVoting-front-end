@@ -1,0 +1,133 @@
+<app-nav></app-nav>
+
+<div class="container">
+    <form class="shadow-lg p-3 mb-5 bg-light rounded" [formGroup]="adminLogin" (ngSubmit)="adminReg()" novalidate>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <h2 class="text-center panel-title">{{title}}</h2>
+                <div class="text-center bg-succes">
+                    <hr>
+                    {{adminservice.date | date:'fullDate'}}
+                    <hr>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--<span *ngIf="adm_id.pattern"> Invalid Student Number. </span> [(ngModel)]="adm_id"-->
+
+                <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
+
+                <div class="form-group">
+                    <label class="control-label" for="adm_id">Staff Number</label>
+                    <div class="input-group">
+
+                        <input type="text" class="form-control mr-sm-2" id="adm_id" formControlName="adm_id"
+                            [ngClass]="{'is-invalid': (submitted || (adminLogin.get('adm_id').touched ||
+                        adminLogin.get('adm_id').dirty) &&
+                        adminLogin.get('adm_id').errors)}" [(ngModel)]="adm_id"
+                            placeholder="Enter Student Number" />
+
+                        <span class="invalid-feedback" *ngIf="(submitted || (adminLogin.get('adm_id').touched ||
+                                 adminLogin.get('adm_id').dirty) && adminLogin.get('adm_id').errors )">
+                            <span *ngIf="adminLogin.get('adm_id').errors?.required">
+                                Student Number is required
+                            </span>
+                            <span *ngIf="adminLogin.get('adm_id').errors?.minlength ||
+                                 adminLogin.get('adm_id').errors?.maxlength">
+                                Student Number must be 9
+                            </span>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="password">Password</label>
+                    <div class="input-group">
+
+                        <input type="password" class="form-control mr-sm-2" id="password" [ngClass]="{ 'is-invalid': 
+                            (submitted || (adminLogin.get('password').touched ||
+                            adminLogin.get('password').dirty) &&
+                            adminLogin.get('password').errors)}" [(ngModel)]="password"
+                            formControlName="password" placeholder="Enter Password" />
+
+                        <span class="invalid-feedback" *ngIf="(submitted || (adminLogin.get('password').touched ||
+                            adminLogin.get('password').dirty) && adminLogin.get('password').errors )">
+
+                            <span *ngIf="adminLogin.get('password').errors?.required">
+                                Password is required
+                            </span>
+                            <span
+                                *ngIf="adminLogin.get('password').errors?.minlength || adminLogin.get('password').errors?.maxlength">
+                                Password must not be less than 8 characters
+                            </span>
+
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-footer form-row">
+
+                <div class="form-group col-md-4">
+                    <button [disabled]=" loading || !adminLogin.valid" type="submit" data-toggle="modal"
+                        data-target="#otpModal"
+                        class="btn btn-primary btn-lg btn-block shadow p-3 mb-5 rounded bg-info">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                </div>
+                <div class="form-group col-md-4">
+                    <button type="reset" class="btn btn-lg btn-block shadow p-3 mb-5 rounded">
+                        Clear
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="otpModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Authentication using One Time Pin(OTP)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Your One Time Pin(OTP) has been send to your tut4life email <br>
+                            Please enter the OTP below</h6>
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label class="control-label" for="OTP">One Time Pin(OTP)</label>
+                                <div class="input-group">
+
+                                    <input type="text" class="form-control mr-sm-2" id="OTP"
+                                    [(ngModel)]="OTP" formControlName="password"
+                                        placeholder="Enter One Time Pin(OTP)" />
+
+
+                                    <!-- [ngClass]="{ 'is-invalid': submitted && fm.adm_id.errors }"formControlName="OTP"
+                                    <span *ngIf="submitted && fm.adm_id.errors" class="invalid-feedback">
+                                        <span *ngIf="fm.adm_id.errors.required">Student Number is required</span>
+                                    </span> -->
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- data-dismiss="modal" -->
+                        <button type="submit" class="btn btn-primary shadow rounded bg-info"
+                            (click)="SendVerificationMailOTP()">Submit</button>
+                        <button type="reset" class="btn btn-default shadow rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<app-footer></app-footer>

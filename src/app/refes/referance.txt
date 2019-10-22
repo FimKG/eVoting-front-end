@@ -1,0 +1,590 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
+import { AppservService } from 'src/app/appserv.service'
+import { AlertService } from 'src/app/_services';
+
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  title = 'Login';
+
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  error: string;
+  returnUrl: any;
+  students: '';
+  staff: '';
+  student_id: '';
+  student_password: '';
+  OTP: '';
+
+  date: string = "Date : " + new Date().toDateString();
+
+  constructor(
+    private loginFm: FormBuilder,
+    private loginservice: AppservService,
+    private router: Router,
+    private toastr: ToastrService,
+    private alert: AlertService,
+    private route: ActivatedRoute,
+
+  ) { }
+
+
+  ngOnInit() {
+    this.loginForm = this.loginFm.group({
+
+      student_id: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
+        // ,
+        //   Validators.pattern("^\d{10}$")])
+      ],
+      student_password: ['', [Validators.required, Validators.minLength(9)]],
+      OTP: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
+    });
+    // get return url from route parameters or default to '/'
+    // if(student ) {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'ballot';
+    // } else {
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
+    // }
+
+  }
+
+
+// ======================================================================
+  requestOTP() {
+    console.log(this.student_id + "@tut4life.ac.za");//Work on this for otp
+    // return this.loginservice.sendEmailVerification(studentID)
+    //   .pipe(first())
+    //   .subscribe(
+    //     reponse => {
+    // this.navigateIfVoted(this.student_id);
+    //       this.router.navigate(['<!-- enter your route name here -->']);
+    //     })
+  }
+
+  SendVerificationMailOTP() {
+    console.log(this.OTP)
+    console.log(this.student_id)
+
+    // return this.loginservice.sendEmailVerification(studentID)
+    //   .pipe(first())
+    //   .subscribe(
+    //     reponse => {
+    // this.navigateIfVoted(this.student_id);
+    //       this.router.navigate(['<!-- enter your route name here -->']);
+    //     })
+
+  }
+
+  navigateIfVoted(student_id) {
+    this.loginservice.check_votes(student_id).subscribe(data => {
+      //navigate based on vote status
+      if (this.isVoted(data.message) == true) {
+        this.router.navigate(['/ballot/postvote']);
+      } else {
+        this.router.navigate([this.returnUrl]);
+      }
+    });
+  }
+  // =============================================================================
+
+  isVoted(msg: String): boolean {
+    msg;
+    if (msg.toLowerCase() == "true") {
+      return true;
+    } else if (msg.toLowerCase() == "false") {
+      return false;
+    }
+  }
+
+  // convenience getter for easy access to form fields
+  get fm() {
+    return this.loginForm.controls;
+  }
+
+  onSubmit() {
+
+    //Request opt via email
+    this.requestOTP();
+
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+
+    return this.loginservice.userLogin(this.student_id, this.student_password)
+      .pipe(first())
+      .subscribe(
+        data => {
+
+          if (data.status == 200) {
+            //Send user id
+            this.loginservice.set_user(Number(this.student_id));
+
+            this.toastr.success(data.message);
+
+            this.loginservice.check_votes(this.student_id).subscribe(data => {
+              //navigate based on vote status
+              if (this.isVoted(data.message) == true) {
+                this.router.navigate(['/ballot/postvote']);
+              } else {
+                this.router.navigate([this.returnUrl]);
+              }
+            });
+
+
+          } else if (data.status == 401) {
+            this.error = data.message;
+          }
+
+        }, error => {
+          this.error = error.message;
+          this.alert.error(error);
+          this.loading = false;
+
+        })
+  }
+/*
+Method to check if the student Exists in the Database 
+Along with backend interactive methods
+
+if(studentExists(id)) {
+    return students
+} else {
+    return notFound();
+}
+*/
+}
+
+
+  <app-nav2></app-nav2>
+<div class="container">
+    <form class="shadow-lg p-3 mb-5 bg-light rounded" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <h2 class="text-center ">{{title}}</h2>
+                <div class="text-center bg-succes">
+                    <hr>
+                    {{date | date:'fullDate'}}
+                    <hr>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--<span *ngIf="student_id.errors && student_id.errors.maxlength"> Invalid Student Number. </span> -->
+                <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+                <div class="form-group">
+                    <label class="control-label" for="student_id">Student Number</label>
+                    <div class="input-group">
+                            
+                        <input type="text" class="form-control mr-sm-2" id="student_id" formControlName="student_id"
+                            [(ngModel)]="student_id" placeholder="Enter Student Number"
+                            [ngClass]="{ 'is-invalid': submitted && fm.student_id.errors }" />
+                        <span *ngIf="submitted && fm.student_id.errors" class="invalid-feedback">
+                            <span *ngIf="fm.student_id.errors.required">Student Number is required</span>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="student_password">Password</label>
+                    <div class="input-group">
+
+                        <input type="password" class="form-control mr-sm-2" id="student_password"
+                            formControlName="student_password" [(ngModel)]="student_password"
+                            placeholder="Enter Password"
+                            [ngClass]="{ 'is-invalid': submitted && fm.student_password.errors }" />
+                        <span *ngIf="submitted && fm.student_password.errors" class="invalid-feedback">
+                            <span *ngIf="fm.student_password.errors.required">Password is required</span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer form-row">
+
+                <!-- && !loginForm.valid data-toggle="modal" data-target="#myModal"-->
+                <div class="form-group col-md-4">
+                    <button [disabled]=" loading " type="submit" data-toggle="modal" data-target="#otpModal"
+                        class="btn btn-primary btn-lg btn-block shadow p-3 mb-5 rounded bg-info">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                </div>
+                <div class="form-group col-md-4">
+                    <button type="reset" class="btn btn-lg btn-block shadow p-3 mb-5 rounded">
+                        Clear
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="otpModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Authentication using One Time Pin(OTP)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Your One Time Pin(OTP) has been send to your tut4life email <br>
+                            Please enter the OTP below</h6>
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label class="control-label" for="OTP">One Time Pin(OTP)</label>
+                                <div class="input-group">
+
+                                    <input type="text" class="form-control mr-sm-2" id="OTP" formControlName="OTP"
+                                        [(ngModel)]="OTP"
+                                        [ngClass]="{ 'is-invalid': submitted && fm.student_id.errors }"
+                                        placeholder="Enter One Time Pin(OTP)" />
+                                    <span *ngIf="submitted && fm.student_id.errors" class="invalid-feedback">
+                                        <span *ngIf="fm.student_id.errors.required">Student Number is required</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!-- data-dismiss="modal" -->
+                        <button type="submit" class="btn btn-primary shadow rounded bg-info"
+                            (click)="SendVerificationMailOTP()">Submit</button>
+                        <button type="reset" class="btn btn-default shadow rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<app-footer></app-footer>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  /*validationMassage = {
+    'user_id': {
+      'required': 'Student number is required.',
+      'maxlength': 'Invalid Student Number.'
+    },
+    'user_password': {
+      'required': 'Password is required.'
+    }
+    //When both User_id and user_password are invalid or one of them
+    // 'user_id' && 'user_id': {
+    //   Invalid Student Number
+    // }
+  }*/
+
+
+
+
+.login-form {
+  width: 750px;
+  margin: 30px auto;
+}
+  .login-form form {        
+    margin-bottom: 15px;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+  }
+  .login-form h2 {
+      margin: 0 0 15px;
+  }
+  .form-control{
+      min-height: 38px;
+      border-radius: 2px;
+  }
+
+
+
+
+  handleError(error) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // Get client-side error
+      // errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      // errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    // return an observable with a user-facing error message
+    // this.errorData = {
+    //   errorTitle: 'Oops! Request for document failed',
+    //   errorDesc: 'Something bad happened. Please try again later.'
+    // };
+    // return throwError(this.errorData);
+    // window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
+
+    // login(username: string, password: string) {
+    //   return this.http.post<any>(`${this.serverUrl}api/login`, {username: username, password: password})
+    //   .pipe(map(user => {
+    //       if (user && user.token) {
+    //         localStorage.setItem('currentUser', JSON.stringify(user));
+    //       }
+    //     }),
+    //     catchError(this.handleError)
+    //   );
+    // }
+
+
+    // private handleError(error: HttpErrorResponse) {
+    //   if (error.error instanceof ErrorEvent) {
+  
+    //     // A client-side or network error occurred. Handle it accordingly.
+    //     console.error('An error occurred:', error.error.message);
+    //   } else {
+  
+    //     // The backend returned an unsuccessful response code.
+    //     // The response body may contain clues as to what went wrong.
+    //     console.error(`Backend returned code ${error.status}, ` + `body was: ${error.error}`);
+    //   }
+  
+    //   // return an observable with a user-facing error message
+    //   this.errorData = {
+    //     errorTitle: 'Oops! Request for document failed',
+    //     errorDesc: 'Something bad happened. Please try again later.'
+    //   };
+    //   return throwError(this.errorData);
+    // }
+
+
+
+
+  /* login, Register, Faculty and admin apis */
+  _loginUrl = "http://168.172.187.164:4000/login";
+  _RegisterUrl = "http://localhost:4000/insert";
+  _FaculUrl = "http://localhost:4000/selectInfo";
+
+  // _loginUrl = "http://168.172.187.155:4000/login";
+  // _RegisterUrl = "http://168.172.187.155:4000/insert";
+  // _ballotUrl = "http://168.172.187.155:4000/ballot";
+  // _FaculUrl = "http://168.172.187.155:4000/selectInfo";
+  // _admin_panelUrl = "http://168.172.187.155:4000/";
+  /* End login, Register, Faculty and admin apis */
+  /*============================================================ */
+  //ballot apis
+  _voteUrl = "http://168.172.187.155:4000/ballot/vote";
+  _sfcUrl = "http://168.172.187.155:4000/ballot/sfc";
+  _isrcUrl = "http://168.172.187.155:4000/ballot/iscrc";
+  _srcUrl = "http://168.172.187.155:4000/ballot/csrc";
+
+  //  _voteUrl = "http://localhost:4000/ballot/vote";
+  //  _sfcUrl = "http://localhost:4000/ballot/sfc";
+  //  _isrcUrl = "http://localhost:4000/ballot/iscrc";
+  //  _srcUrl = "http://localhost:4000/ballot/csrc";
+  /*End of ballot apis*
+
+
+
+<div class="container">
+  <div class="text-center row">
+    <div class="col-md-8">
+      <h4>Rules</h4>
+      <p>Welcome to the TUT online voting site. By continuing to browse the this website means you agree to the
+        following
+        terms and condition of use, which forms part of our privacy policy and are in line with the institutions
+        electoral
+        policy</p>
+    </div>
+    <div class="col-md-8">
+      <h4>Rules</h4>
+      <ul>
+        <li>This website uses cookies to monitor browsing preference. Allowing this means that means that third
+          parties may store personal information.</li>
+        <li>Use of the information provided in this website is entirely at your own risk.</li>
+        <li>The user may not in any way adapt, reproduce, distribute, and or alter the content of the website without
+          consent.</li>
+        <li>Any unauthorised use of the website may give rise to claim for damages and or be a criminal offence.</li>
+        <li>The website may or may not include links to external sites for further information.</li>
+        <li>Full access to the website is limited to registered TUT students and the website’s administrator only.
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+​
+/* Style by Kgaugelo */
+
+/* .carousel-caption{
+  font-family: Garamond;
+  font-size: 1em;
+  color: rgb(22, 144, 165) !important;
+  } */
+
+/*  */
+.h2, h2 {
+  font-size: 50px;
+}
+
+.login-form {
+  width: 750px;
+  margin: 30px auto;
+}
+  .login-form form {        
+    margin-bottom: 15px;
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+      padding: 30px;
+  }
+  .login-form h2 {
+      margin: 0 0 15px;
+  }
+  .form-control{
+      min-height: 38px;
+      border-radius: 2px;
+  }
+  .input-group-addon .fa {
+      font-size: 18px;
+  }
+  /* form-check-input {
+    position: absolute;
+    margin-top: -0.7rem;
+    margin-left: -13.25rem;
+} */
+  /* ul.nav li a, ul.nav li a:visited {
+    color: rgb(255, 0, 0) !important;
+}
+
+ul.nav li a:hover, ul.nav li a:active {
+  color: rgb(255, 0, 0) !important;
+} */
+/* a {
+  color: #fffa00;
+} */
+
+/* #exTab1 .tab-content {
+  color : white;
+  background-color: #4b555d;
+  padding : 5px 15px;
+} */
+
+/* #exTab2 h3 {
+  color : white;
+  background-color: #4b555d;
+  padding : 5px 15px;
+} */
+
+/* remove border radius for the tab */
+
+/* #exTab1 .nav-pills > li > a {
+  border-radius: 0;
+} */
+
+/* change border radius for the tab , apply corners on top*/
+
+/* #exTab3 .nav-pills > li > a {
+  border-radius: 4px 4px 0 0 ;
+} */
+
+/* #exTab3 .tab-content {
+  color : white;
+  background-color: #4b555d;
+  padding : 5px 15px;
+} */
+
+footer {
+  
+  bottom: 0;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+}
+
+.bg-info {
+  background-color: rgba(11, 66, 97, 0.856)!important;
+}
+body {
+  /* background: url(/assets/img/mmm.jpg) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(251, 251, 251, 1);
+  font-size: 16px;
+  
+}
+
+/* .navbar-light .navbar-nav > .active > a {
+  color: aqua;
+  background-color: chartreuse;    
+}
+.nav-item > a:hover {
+  color: aqua;
+} */
+
+.img-logo {
+  height: 5%;
+  width: 5%;
+}
+  /* @media(max-width:768px){
+    #login-dp{
+        background-color: inherit;
+        color: #fff;
+    }
+    #login-dp .bottom{
+        background-color: inherit;
+        border-top:0 none;
+    }
+  } */
+  
+  .carousel-item {
+    width:100%;
+    min-height: 600px !important;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  
+/* End Style by Kgaugelo */
+
+
+
+/* Start by perfect Thabiso */
+
+
+/* END BY PERFECT THABSIO */
+
+

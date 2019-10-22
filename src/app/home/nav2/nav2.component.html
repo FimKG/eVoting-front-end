@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-info static-top">
+
+  <img class="img-logo align-top" src="../../assets/img/GroupLogo.png" alt="logo" />
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLinkActive="active" routerLink="../home">Home
+        <span class="sr-only">(current)</span>
+      </a>
+
+      <p>|</p>
+      <!-- ============================== Not Complete ======================================== -->
+      <!-- Hide when loggedIn *ngIf="show: else hideLogout" *ngIfElse="hide"-->
+      <div class="form-inline" *ngIf="ActivatedRoute==home">
+
+        <a class="nav-item nav-link" routerLinkActive="active" routerLink="../login"> Login</a>
+
+        <p>|</p>
+
+        <a class="nav-item nav-link" routerLinkActive="active" routerLink="../register"> Register</a>
+
+        <p>|</p>
+
+        <a class="nav-item nav-link" routerLinkActive="active" routerLink="../contactus"> Contact Us</a>
+      </div>
+
+      <p>|</p>
+
+      <!-- Hide when loggedout  #hideLogout *ngIfElse="hide"-->
+      <div class="form-inline " *ngIf="ActivatedRoute!==home">
+        <div class="navbar-nav">
+          <a class="nav-link" (click)="logOut()">| Logout</a>
+        </div>
+      </div>
+      <!-- End Hide when loggedout hide -->
+      <!-- ============================== Not Complete ======================================== -->
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,154 @@
+<html>
+<!-- <app-nav></app-nav> -->
+<nav>
+<app-admin-navigation></app-admin-navigation>
+</nav>
+
+<body>
+  <div class="container" style="margin-left: 33%">
+	<div class="row">
+	  <div class="col-lg-2 col-sm-6">
+		<div class="circle-tile ">
+		 
+		  <div class="circle-tile-content dark-blue">
+			<div class="circle-tile-description text-faded">Registered Voters </div>
+			<div class="circle-tile-number text-faded ">265</div>
+			
+		  </div>
+		</div>
+	  </div>
+	   
+	  <div class="col-lg-2 col-sm-6">
+		<div class="circle-tile ">
+		  
+		  <div class="circle-tile-content red">
+			<div class="circle-tile-description text-faded"> Total SRC Votes</div>
+			<div class="circle-tile-number text-faded ">10</div>
+			
+		  </div>
+		</div>
+	  </div> 
+  
+	<div class="col-lg-2 col-sm-6">
+		<div class="circle-tile ">
+		  
+		  <div class="circle-tile-content dark-blue">
+			<div class="circle-tile-description text-faded">Total CSRC Votes</div>
+			<div class="circle-tile-number text-faded ">265</div>
+			
+		  </div>
+		</div>
+	  </div>
+	   
+	  <div class="col-lg-2 col-sm-6">
+		<div class="circle-tile ">
+		  
+		  <div class="circle-tile-content red">
+			<div class="circle-tile-description text-faded"> Total SRC Votes </div>
+			<div class="circle-tile-number text-faded ">10</div>
+			
+		  </div>
+		</div>
+	  </div> 
+	  </div>
+	  </div>
+	  <!-- <hr> -->
+	  <br>
+	  <div  class="container" >
+			
+		<h3>Central SRC</h3>        
+		<table class="table">
+		  <thead>
+			<tr>
+			  <th>Logo</th>
+			  <th>Party name</th>
+			  <th>Votes</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let el of csrcVotes ; let i = index">
+				
+				<td><img src="{{el.csrc_img}}" height="30"></td>
+				<td>{{el.csrc_name}}</td>
+				<td>{{el.res}}</td>
+			</tr>
+			
+		  </tbody>
+		  
+		</table>
+	 
+	  <br>
+	  
+	  
+	  
+		<h3>Institutional SRC</h3>        
+		<table class="table">
+		  <thead>
+			<tr>
+				<th>Logo</th>
+				<th>Party name</th>
+				<th>Votes</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let isrc_el of isrcVotes ; let i = index" >
+				<td ><img height="30" src="{{isrc_el.isrc_img}}">{{isrc_el.isrc_name}}</td>
+				<td>{{isrc_el.isrc_name}}</td>
+				<td>{{isrc_el.results}}</td>
+			</tr>	
+		  </tbody>	 
+		</table>
+	 
+	 
+			
+		<h3>Faculty Candidates</h3>   
+		<div class="dropdown ">
+					
+				<div class="input-group">
+				  <select id="fac_id" class="form-control" [(ngModel)]="fac_id">
+					<option class="" [class.selected]>-- Filter By Faculty --</option>
+					<option class="" *ngFor="let fac of faculties" (change)="selectedFaculty(fac.fac_id)" (click)="getSelectedFac(faculty)" [value]="fac.fac_id">
+					  {{fac.fac_name}} </option> 
+				  </select>
+				 
+				</div>
+			  </div>     
+		<table class="table">
+		  <thead>
+			<tr>
+				<th>Faculty</th>
+				<th>Image</th>
+				<th>Name</th>
+				<th>Position</th>
+				<th>Votes</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let sfc_el of sfcVotes ; let i = index" >
+				<td>{{sfc_el.fac_name}}</td>
+				<td ><img height="30" src="{{sfc_el.sfc_img}}">{{sfc_el.sfc_img}}</td>
+				<td>{{sfc_el.sfc_name}}</td>
+				<td>{{sfc_el.sfc_position}}</td>
+				<td>{{sfc_el.results}}</td>
+			</tr>	
+		  </tbody>	 
+		</table>
+	 </div>
+	</body>
+	<div ></div>
+	  <footer>
+		<div class="text-center p-3 border border-right-0 border-bottom-0 border-left-0 border-white">
+
+			© {{date}} Copyright: <a routerLink="/home"> E-voting.co.za</a>
+				
+	
+		</div>
+	  </footer>
+	
+	  </html>
+ 
+	   
+	 
+
+
+ 

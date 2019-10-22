@@ -1,0 +1,81 @@
+<app-nav></app-nav>
+<br>
+<div class="container-fluid ">
+	<div class="">
+		<div id="ballot"  class="col-sm-6 offset-sm-3 table shadow bg-white rounded">
+			<div id="isrc_section">
+				<br>
+				<div class="rounded-lg" style="background-color: #0202028e"> 
+					<h2 align="center"  class="text-white ">Institutional SRC</h2>
+				</div>
+				
+				<table class="table" id="group1">
+					<tr class="thead-light">
+						<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+					</tr>
+					<tr *ngFor="let isrc_el of isrcVotes ; let i = index" >
+						<td ><img height="30" src="{{isrc_el.isrc_img}}">{{isrc_el.isrc_name}}</td>
+						<td>{{isrc_el.results}}</td>
+					</tr>
+					<tr>
+						<td>{{''}}</td>
+						<td>{{'Total Votes'}}</td>
+						<td >{{i}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div id="ballot" class="col-sm-6 offset-sm-3 table shadow p-3 mb-5 bg-white rounded">
+			<div id="csrc_section">
+				<br>
+				<div class="rounded-lg" style="background-color: #0202028e"> 
+					<h2 align="center"  class="text-white ">Central SRC</h2>
+				</div>
+				
+				<table class="table" id="group1">
+					<tr class="thead-light">
+						<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+					</tr>
+					<tr *ngFor="let el of csrcVotes ; let i = index">
+						
+						<td>{{el.csrc_name}}</td>
+						<td>{{el.res}}</td>
+					</tr>
+					<tr>
+						<td>{{''}}</td>
+						<td>{{'Total Votes'}}</td>
+						<td>{{iv}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div *ngFor="let el of fac ;" id="ballot" class="col-sm-6 offset-sm-3 table shadow p-3 mb-5 bg-white rounded">
+				<div id="csrc_section">
+					<br>
+					<div class="rounded-lg" style="background-color: #0202028e"> 
+						<h2 align="center"  class="text-white ">{{el.fac_name}}</h2>
+					</div>
+					
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_sfc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let el of csrcVotes ; let i = index">
+							<td>{{i+1}}</td>
+							<td>{{el.csrc_name}}</td>
+							<td>{{el.res}}</td>
+						</tr>
+						<tr>
+							<td>{{''}}</td>
+							<td>{{'Total Votes'}}</td>
+							<td>{{iv}}</td>
+						</tr>
+					</table>
+				</div>
+		</div>
+		
+    </div>
+</div>
+<app-footer></app-footer>

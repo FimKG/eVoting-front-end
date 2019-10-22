@@ -1,0 +1,34 @@
+<app-nav1></app-nav1>
+<br>
+<div class="">
+	<div class="col-sm-6 offset-sm-3">
+		<div id="ballot" class="table shadow p-3 mb-5 bg-white rounded">
+			<div id="isrc_section" class="w3-animate-fading">
+				<br>
+				<div class="rounded-lg" style="background-color: #f9b812"> 
+					<h2 align="center"  class="text-black-50 ">Institutional SRC</h2>
+					<p align="center"><b>(Instructions)</b>You may only vote for one structure.
+					<b>To vote </b>Select a desired party on the vote field and click the below button </p>
+				</div>
+				
+				<table class="table" id="group1">
+					<tr class="thead-light">
+						<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+					</tr>
+					<tr *ngFor="let isrc_el of isrc ; let i = index">
+						<td>{{i+1}}</td>
+						<td>{{isrc_el.isrc_name}}</td>
+						<td><img src={{isrc_el.isrc_img}} alt="Avatar" style="width:80px"></td>
+						<fieldset id="group_1">
+							<td><input (click)="get_isrc(isrc_el.isrc_id)" type="radio" name="isrc_rbt"></td>
+						</fieldset>
+					</tr>
+				</table>
+			</div>
+        </div>
+
+		<div class="col text-center">
+			<button  (click)="submit()"  style="width: 150px" class="btn btn-primary btn-lg shadow p-3 mb-5 rounded bg-info">  Next  <i class="fa fa-arrow-right"></i>  <i></i></button>
+		</div>
+    </div>
+</div>

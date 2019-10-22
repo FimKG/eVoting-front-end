@@ -1,0 +1,139 @@
+<app-nav></app-nav>
+
+<div class="container">
+    <form class="shadow-lg p-3 mb-5 bg-light rounded" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">
+                <h2 class="text-center panel-title">{{title}}</h2>
+                <div class="text-center bg-succes">
+                    <hr>
+                    {{loginservice.date | date:'fullDate'}}
+                    <hr>
+                </div>
+            </div>
+            <div class="panel-body">
+                <!--<span *ngIf="student_id.pattern"> Invalid Student Number. </span> [(ngModel)]="student_id"-->
+
+                <!-- <div *ngIf="error" class="alert alert-danger">{{error}}</div> -->
+
+                <div class="form-group">
+                    <label class="control-label" for="student_id">Student Number</label>
+                    <div class="input-group">
+
+                        <input type="text" class="form-control mr-sm-2" id="student_id" formControlName="student_id"
+                            [ngClass]="{'is-invalid': (submitted || (loginForm.get('student_id').touched ||
+                        loginForm.get('student_id').dirty) &&
+                        loginForm.get('student_id').errors)}" [(ngModel)]="student_id"
+                            placeholder="Enter Student Number" />
+
+                        <span class="invalid-feedback" *ngIf="(submitted || (loginForm.get('student_id').touched ||
+                                 loginForm.get('student_id').dirty) && loginForm.get('student_id').errors )">
+                            <span *ngIf="loginForm.get('student_id').errors?.required">
+                                Student Number is required
+                            </span>
+                            <span *ngIf="loginForm.get('student_id').errors?.minlength ||
+                                 loginForm.get('student_id').errors?.maxlength">
+                                Student Number must be 9
+                            </span>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="student_password">Password</label>
+                    <div class="input-group">
+
+                        <input type="password" class="form-control mr-sm-2" id="student_password" [ngClass]="{ 'is-invalid': 
+                            (submitted || (loginForm.get('student_password').touched ||
+                            loginForm.get('student_password').dirty) &&
+                            loginForm.get('student_password').errors)}" [(ngModel)]="student_password"
+                            formControlName="student_password" placeholder="Enter Password" />
+
+                        <span class="invalid-feedback" *ngIf="(submitted || (loginForm.get('student_password').touched ||
+                            loginForm.get('student_password').dirty) && loginForm.get('student_password').errors )">
+
+                            <span *ngIf="loginForm.get('student_password').errors?.required">
+                                Password is required
+                            </span>
+                            <span
+                                *ngIf="loginForm.get('student_password').errors?.minlength || loginForm.get('student_password').errors?.maxlength">
+                                Password must not be less than 8 characters
+                            </span>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel-footer form-row">
+
+                <div class="form-group col-md-4">
+                    <button [disabled]=" loading || !loginForm.valid" type="submit" data-toggle="modal"
+                        data-target="#otpModal" data-backdrop="static" data-keyboard="false"
+                        class="btn btn-primary btn-lg btn-block shadow p-3 mb-5 rounded bg-info">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        Login
+                    </button>
+                </div>
+                <div class="form-group col-md-4">
+                    <button type="reset" class="btn btn-lg btn-block shadow p-3 mb-5 rounded">
+                        Clear
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="otpModal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Authentication using One Time Pin(OTP)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h6>Your One Time Pin(OTP) has been send to your tut4life email <br>
+                            Please enter the OTP below</h6>
+                        <div class="alert alert-info">
+                            <div class="form-group">
+                                <label class="control-label" for="OTP">One Time Pin(OTP)</label>
+                                <div class="input-group">
+<!-- 
+
+[ngClass]="{ 'is-invalid': 
+                                    (submitted || (loginForm.get('OTP').touched || loginForm.get('OTP').dirty) && 
+                                    loginForm.get('OTP').errors)}"
+<span class="invalid-feedback"
+                                        *ngIf="(submitted || (loginForm.get('student_password').touched ||
+                                        loginForm.get('student_password').dirty) && loginForm.get('student_password').errors )">
+                                        <span *ngIf="loginForm.get('OTP').errors?.required">
+                                            One Time Pin(OTP) is required
+                                        </span>
+                                    </span>
+ -->
+
+
+                                    <input type="text" class="form-control mr-sm-2" id="OTP"  [(ngModel)]="OTP" formControlName="OTP"
+                                        placeholder="Enter One Time Pin(OTP)" />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--  [disabled]=" loading || !loginForm.valid" -->
+                        <button type="submit"  class="btn btn-primary shadow rounded bg-info"
+                            (click)="SendVerificationMailOTP()" data-dismiss="modal">Submit</button>
+                        <button type="reset" class="btn btn-default shadow rounded" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<app-footer></app-footer>

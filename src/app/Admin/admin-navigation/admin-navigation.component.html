@@ -1,0 +1,49 @@
+<!-- <div class="search-container">
+                        <form action="/action_page.php">
+                          <input type="text" placeholder="Search.." name="search" [(ngModel)]="search">
+                          <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                      </div> -->
+
+
+<!-- Page content -->
+<!-- ====================================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-info static-top">
+
+  <img class="img-logo align-top" src="../../assets/img/GroupLogo.png" alt="logo" />
+
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-between" id="navbar">
+
+    <div class="header">
+      <h5>Admin Panel</h5>
+    </div>
+
+    <!-- Hide when loggedout  #hideLogout *ngIfElse="hide"-->
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" (click)="logOut()"> Logout</a>
+    </div>
+
+    <!--       
+    *ngIf="ActivatedRoute!==home"
+            <div style="margin-left:70%;">
+              <form action="" >
+                <input type="text" placeholder="Search.." name="search" [(ngModel)]="search">
+                <button type="submit"><i class="fa fa-search"></i></button>
+              </form>
+          </div> -->
+
+  </div>
+</nav>
+<!-- ====================================================================== -->
+<div class="sidebar">
+
+  <a routerLink="/adminregister">Manage Candidates</a>
+  <a routerLink="/adminview">Manage Organization</a>
+  <a routerLink="/adminpanel">Votes</a>
+
+</div>
