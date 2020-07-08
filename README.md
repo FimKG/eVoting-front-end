@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.0.
 
+## Contributors -icep.co.za
+## Has been registered on behalf of a TUT ICEP.
+([https://github.com/FimKG]) 👨‍💻<br />
+([https://github.com/paulphoku]) 😊<br />
+([https://github.com/nontokozokunene]) 👨‍💻 <br />
+([https://github.com/Nhlapo]) 👨‍💻<br />
+([https://github.com/nothandongobeni]) 👨‍💻<br />
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
