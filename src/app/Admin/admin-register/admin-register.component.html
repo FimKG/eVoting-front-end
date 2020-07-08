@@ -1,73 +1,83 @@
-<app-admin-navigation></app-admin-navigation>
-<!------ Include the above in your HEAD tag ---------->
-
-
+<app-admin-panel></app-admin-panel>
 <div class="container">
-
-  <div class="row col-sm-60 col-sm-offset-2 custyle" style="width:100%">
-    <table class="table table-striped custab" id="group1">
-      <thead>
-        <table>
-          <tr>
-            <td>
-              <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal"
-                data-target="#exampleModal"><b>+</b> Add Candidate</button>
-            </td>
-            <td>
-              <!--  -->
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  Dropdown button
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" *ngFor="let faculty of faculties" (click)="getCandidateSelected(faculty)">{{faculty.fac_name}}</a>
-      
-                </div>
-              </div>
-
-            </td> 
-          </tr>
-        </table>
-       
-        <tr>
-          <th scope="col">Image</th>
-          <th scope="col">Candidate</th>
-          <th scope="col">Fuculty</th>
-          <th scope="col">Position</th>
-          <th class="text-center" scope="col">Action</th>
-        </tr>
-      </thead>
-
-      <tbody>
-
-        <tr *ngFor="let candidate of candidates">
-          <td><img src={{candidate.sfc_img}} alt="Avatar" style="width:70px"></td>
-          <td>{{candidate.sfc_name}}</td>
-          <td>
-            <div *ngFor="let faculty of faculties">
-              <div *ngIf="candidate.fac_id === faculty.fac_id">
-                {{faculty.fac_name}}
-              </div>
+  <div class="row">
+    <!--- Aside-Bar -->
+    <div class="col-md-3">
+    </div>
+    <br>
+    <!---/Aside-Bar -->
+    <div class="col-md-9">
+        <br>
+      <div class=" card shadow rounded-lg border border-dark">
+        <div class="card-header bg-info text-white">Candidates</div>
+        <div class="card-body">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Faculty Candidate
+            </button>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" *ngFor="let faculty of faculties" (click)="getSelectedCat(faculty)">{{faculty.fac_name}}</a>
+              <!-- name="fac_id" value="faculty.fac_id" [(ngModel)]="fac_id"-->
             </div>
+          </div>
+          <div class="panel panel-default panel-box-shadow">
+            <!-- Default panel contents -->
 
-          </td>
-          <td>{{candidate.sfc_position}}</td>
-          <td><button class="btn btn-success" style="width:100px" class="btn btn-info btn-xs" (click)="UpdateUser(user)"> Update</button>&nbsp;
-            <button class="btn btn-success" style="width:100px" class="btn btn-danger btn-xs" (click)="deleterecord(candidate.sfc_id)" >Withdraw</button></td>
-        </tr>
-      </tbody>
-      <!-- style="margin-left: 15px;" -->
-    </table>
+            <div class="panel-body">
+              <!-- Table -->
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Candidate</th>
+                    <th scope="col">Faculty</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let candidate of candidates">
+                    <td scope="col"><img src={{candidate.sfc_img}} alt="Avatar" style="width:70px"></td>
+                    <td scope="col">{{candidate.sfc_name}}</td>
+                    <td scope="col">
+
+                      <div *ngFor="let faculty of faculties; let j=index ">
+                        <div *ngIf="candidate.fac_id === faculty.fac_id">
+                          {{faculty.fac_name}}
+                        </div>
+                      </div>
+
+                    </td>
+                    <td scope="col">{{candidate.sfc_position}}</td>
+
+                    <td scope="col"><a class="btn btn-primary " data-toggle="modal" data-target="#exampleModal"  (click)="edit(candidate)">Edit</a></td>
+                    <td scope="col"><a class="btn btn-danger " (click)="deleterecord(candidate.sfc_id)">Delete</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
 
 
+
+        </div>
+      </div>
+      <br>
+    </div>
+    <!--Main-Content-Area-->
+
+    <!--/Main-Content-Area--->
+
+    <!-- content -->
     <!-- modal for adding the users -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Register Candidate</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Edit Candidate</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -75,37 +85,27 @@
           <div class="modal-body">
 
             <!-- Register Form Start -->
-            <form padding ngForm="registerform" (ngSubmit)="onSubmit()"
+            <div 
               class="login-form shadow-lg p-3 mb-5 bg-light rounded">
               <div class="text-center">
 
                 <h2></h2>
                 <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
                   alt="avatar">
-                <input type="file" class="text-center center-block file-upload" name="image" [(ngModel)]="image"
+                <input type="file" class="text-center center-block file-upload" name="register.sfc_img" [(ngModel)]="register.sfc_img"
                   (change)="onFileChange($event)" #fileInput>
               </div>
 
-              <!-- <div class="form-group">
-                <label for="name">image</label>
-                <input type="text" class="form-control mr-sm-2 " name="image" [(ngModel)]="sfc_img">
-              </div> -->
-
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control mr-sm-2 " name="sfc_name" [(ngModel)]="sfc_name">
-              </div>
-
-              <div class="form-group">
-                <label for="student">Student Number</label>
-                <input type="text" class="form-control mr-sm-2" name="sfc_id" [(ngModel)]="sfc_id" />
+                <input type="text" class="form-control mr-sm-2 " name="register.sfc_name" [(ngModel)]="register.sfc_name">
               </div>
 
               <div class="form-group dropdown ">
                 <label for="fac_id" class="col-lg-2 control-label">Faculty</label>
                 <!--   (change)="selectedFaculty(fac.fac_id)"-->
                 <select id="fac_id" class="form-control browser-default custom-select" data-max-options="1"
-                  name="sfc_faculty" [(ngModel)]="sfc_faculty">
+                  name="register.sfc_faculty" [(ngModel)]="register.sfc_faculty">
                   <option class="" selected>-- Select Faculty --</option>
                   <option *ngFor="let fac of faculties" class="" [value]="fac.fac_id"> {{fac.fac_name}} </option>
                 </select>
@@ -113,8 +113,8 @@
               <!--  -->
               <div class="form-group dropdown ">
                 <label for="sfc_position" class="col-lg-2 control-label">Position</label>
-                <select class="form-control browser-default custom-select" name="sfc_position"
-                  [(ngModel)]="sfc_position">
+                <select class="form-control browser-default custom-select" name="register.sfc_position"
+                  [(ngModel)]="register.sfc_position">
                   <option selected>Select Position</option>
                   <option value="Secretary">Secretary</option>
                   <option value="2">Chairperson</option>
@@ -127,20 +127,29 @@
               <br>
               <div class="form-group">
                 <!-- data-dismiss="modal" -->
-                <button class="btn btn-primary" type="submit">Register</button>
+                <button class="btn btn-primary" type="submit" (click)="onSubmit()">Update</button>
                 <button type="reset" class="btn btn-link">Cancel</button>
               </div>
 
-            </form>
+            </div>
             <!-- registerform : {{re }} -->
             <!-- End Register Form  -->
           </div>
           <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
         </div>
       </div>
     </div>
+
+
+    <!-- The second modal -->
+
+
+    
+
+
   </div>
 </div>
+<br>

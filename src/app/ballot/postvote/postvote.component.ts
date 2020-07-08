@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AppservService} from '../../services/appserv.service';
 
 @Component({
   selector: 'app-postvote',
@@ -8,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostvoteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private postservice: AppservService) { }
+
+  usersSession: any;
+
+
 
   ngOnInit() {
+    /*Storing User Token details HTTP Authentication!!*/
+
+    
+
+
+
+
+
+    
   }
 
 }

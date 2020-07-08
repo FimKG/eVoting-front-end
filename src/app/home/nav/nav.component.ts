@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import { longStackSupport } from 'q';
 
-import { AppservService } from '../../appserv.service';
-// import { LoginComponent} from '../../login/login.component';
-import { from } from 'rxjs';
+import { AppservService } from 'src/app/services/exports';
 
 @Component({
   selector: 'app-nav',
@@ -11,30 +8,16 @@ import { from } from 'rxjs';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  show: boolean;
-  
+  user_Details: any;
+  role= "Role";
+
   constructor(
-    // private login: LoginComponent,
     private navservice: AppservService
 
   ) { }
 
   ngOnInit() {
-    // if (this.show) {
-      this.show = false;
-      
-    // } else {
-    //   this.show=false;
-    // }
+    // this.user_Details = "Welcome " + this.role +": " +sessionStorage.getItem("currentUser").split('"')[3]
   }
 
-  logOut() {
-    this.navservice.logout();
-    
-  }
-
-  // hideDiv() {
-  //   // console.log("his", this.show =true)
-
-  // }
 }

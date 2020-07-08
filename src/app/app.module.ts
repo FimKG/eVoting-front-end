@@ -1,91 +1,72 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-
-import { BallotComponent } from './ballot/ballot.component';
-import { FooterComponent } from './home/footer/footer.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { NavComponent } from './home/nav/nav.component';
-import { RegisterComponent } from './register/register.component';
-
-import { AppservService } from './appserv.service';
-import { AlertService } from './_services'
+import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { GoogleChartsModule } from 'angular-google-charts';
 
-import { AdminPanelComponent } from './Admin/admin-panel/admin-panel.component';
-import { AdminNavigationComponent } from './Admin/admin-navigation/admin-navigation.component';
-import { AdminRegisterComponent } from './Admin/admin-register/admin-register.component';
-import { AdminViewComponent } from './Admin/admin-view/admin-view.component';
-import { AdminVotesComponent } from './Admin/admin-votes/admin-votes.component';
-import { PostvoteComponent } from './ballot/postvote/postvote.component';
-import { SfcComponent } from './ballot/sfc/sfc.component';
-import { CsrcComponent } from './ballot/csrc/csrc.component';
-import { IsrcComponent } from './ballot/isrc/isrc.component';
-// import { AdminServiceComponent } from './_services';
-import { Nav1Component } from './home/nav1/nav1.component';
-import { Nav2Component } from './home/nav2/nav2.component';
-import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
-import { ContactusComponent } from './home/contactus/contactus.component';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AppComponent } from 'src/app/app.component';
+import { AppservService } from 'src/app/services/exports';
 
+import { LoginComponent } from 'src/app/login/login.component';
+import { RegisterComponent } from 'src/app/register/register.component';
 
+import { AdminPanelComponent } from 'src/app/Admin/admin-panel/admin-panel.component';
+import { AdminNavigationComponent } from 'src/app/Admin/admin-navigation/admin-navigation.component';
+import { AdminRegisterComponent } from 'src/app/Admin/admin-register/admin-register.component';
+import { AdminViewComponent } from 'src/app/Admin/admin-view/admin-view.component';
+import { AdminCSRCViewsComponent } from 'src/app/Admin/admin-view/admin-CSRC-views/admin-CSRC-views.component';
+import { AdminSRCViewComponent } from 'src/app/Admin/admin-view/admin-SRC-view/admin-SRC-view.component';
+import { AdminVotesComponent } from 'src/app/Admin/admin-votes/admin-votes.component';
+import { AdminLoginComponent } from 'src/app/Admin/admin-login/admin-login.component';
 
+import { HomeComponent } from 'src/app/home/home.component';
+import { FooterComponent } from 'src/app/home/footer/footer.component';
+import { NavComponent } from 'src/app/home/nav/nav.component';
+import { ContactusComponent } from 'src/app/home/contactus/contactus.component';
+import { PageNotFoundComponent } from 'src/app/home/404/page-not-found.component';
+
+import { PostvoteComponent } from 'src/app/ballot/postvote/postvote.component';
+import { SfcComponent } from 'src/app/ballot/sfc/sfc.component';
+import { CsrcComponent } from 'src/app/ballot/csrc/csrc.component';
+import { IsrcComponent } from 'src/app/ballot/isrc/isrc.component';
+import { BallotComponent } from 'src/app/ballot/ballot.component';
 
 @NgModule({
   declarations: [
+
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    BallotComponent,
-    AdminPanelComponent,
 
-    NavComponent,
-    Nav1Component,
-    Nav2Component,
-    FooterComponent,
+    LoginComponent, RegisterComponent,
 
-    HomeComponent,
-    AdminNavigationComponent,
-    AdminRegisterComponent,
-    AdminViewComponent,
-    AdminVotesComponent,
-    PostvoteComponent,
-    SfcComponent,
-    CsrcComponent,
-    IsrcComponent,
-    AdminLoginComponent,
-    ContactusComponent,
+    NavComponent, FooterComponent, HomeComponent, ContactusComponent, PageNotFoundComponent,
+
+    AdminNavigationComponent, AdminRegisterComponent, AdminViewComponent, AdminLoginComponent, AdminVotesComponent, AdminPanelComponent, 
+    AdminCSRCViewsComponent , AdminSRCViewComponent,
+
+    PostvoteComponent, SfcComponent, CsrcComponent, IsrcComponent, BallotComponent
+    
 
   ],
   imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
+    BrowserModule, ReactiveFormsModule, HttpClientModule, AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    // GoogleChartsModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 1500,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    })
   ],
 
   providers: [
-    AlertService,
-    AppservService,
-    LoginComponent,
-    NavComponent
-    // ====================================================================================
-    ,{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-    // ====================================================================================
+
+    AppservService, LoginComponent, RegisterComponent
+
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-

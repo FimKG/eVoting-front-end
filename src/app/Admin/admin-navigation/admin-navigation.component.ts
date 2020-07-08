@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AppservService} from '../../appserv.service';
+import {AppservService} from '../../services/appserv.service';
+import {AdminServiceService} from 'src/app/services/admin-service.service';
 
 @Component({
   selector: 'app-admin-navigation',
@@ -8,13 +9,22 @@ import {AppservService} from '../../appserv.service';
 })
 export class AdminNavigationComponent implements OnInit {
 
-  constructor(private logut:AppservService) { }
+  constructor(
+    private appService:AppservService,
+    private adminService:AdminServiceService) { }
 
   ngOnInit() {
     
   }
+
+  isrcVotes;
+  csrcVotes;
+  sfcVotes;
+  numVoters;
+  voted;
+  
   logOut()
   {
-    this.logut.logout();
+    this.appService.logout();
   }
 }

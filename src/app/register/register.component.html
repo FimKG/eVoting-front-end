@@ -1,5 +1,3 @@
-<app-nav></app-nav>
-
 <div class="container">
   <form class=" shadow p-3 mb-5 bg-light rounded" [formGroup]="registerform" (ngSubmit)="onSubmit()" novalidate>
 
@@ -9,169 +7,160 @@
         <h2 class="text-center ">{{title}}</h2>
         <div class="text-center bg-succes">
           <hr>
-          {{registerservice.date | date:'fullDate'}}
+          {{appServ.date | date:'fullDate'}}
           <hr>
         </div>
       </div>
       <div class="panel-body">
 
+        <div *ngIf="setError" class="text-center alert alert-danger">{{setError}}</div>
+
         <div class="form-group">
           <label class="control-label" for="student_fname">First Name</label>
-          <div class="input-group">
-
-            <input type="text" class="form-control mr-sm-2" id="student_fname" [(ngModel)]="student_fname"
-              formControlName="student_fname" placeholder="Enter First Name" [ngClass]="{ 'is-invalid': (submitted || 
+          <input type="text" class="form-control mr-sm-2" id="student_fname" formControlName="student_fname"
+            placeholder="Enter First Name" [ngClass]="{ 'is-invalid': (submitted || 
               (registerform.get('student_fname').touched ||
               registerform.get('student_fname').dirty) &&
-              registerform.get('student_fname').errors) }" />
+              registerform.get('student_fname').errors) }" autocomplete="off" />
 
-            <span *ngIf="(submitted || (registerform.get('student_fname').touched ||
+          <span *ngIf="(submitted || (registerform.get('student_fname').touched ||
             registerform.get('student_fname').dirty) &&
             registerform.get('student_fname').errors)" class="invalid-feedback">
-
-              <span *ngIf="registerform.get('student_fname').errors?.required">First Name is required</span>
+            <span *ngIf="registerform.get('student_fname').errors?.pattern">
+              Only characters are allowed
             </span>
-          </div>
+            <span *ngIf="registerform.get('student_fname').errors?.required">First Name is required</span>
+          </span>
+
         </div>
-        <!-- ========================================================================================================= -->
         <div class="form-group">
           <label class="control-label" for="student_lname">Last Name</label>
-          <div class="input-group">
-
-            <input type="text" class="form-control mr-sm-2" id="student_lname" formControlName="student_lname"
-              [(ngModel)]="student_lname" placeholder="Enter Last Name" [ngClass]="{ 'is-invalid': (submitted || 
+          <input type="text" class="form-control mr-sm-2" id="student_lname" formControlName="student_lname"
+            placeholder="Enter Last Name" [ngClass]="{ 'is-invalid': (submitted || 
               (registerform.get('student_lname').touched ||
               registerform.get('student_lname').dirty) &&
-              registerform.get('student_lname').errors) }" />
-            <span *ngIf="(submitted || 
+              registerform.get('student_lname').errors) }" autocomplete="off" />
+
+          <span *ngIf="(submitted || 
             (registerform.get('student_lname').touched ||
             registerform.get('student_lname').dirty) &&
             registerform.get('student_lname').errors)" class="invalid-feedback">
-
-              <span *ngIf="registerform.get('student_lname').errors?.required">Last Name is required</span>
+            <span *ngIf="registerform.get('student_lname').errors?.pattern">
+              Only characters are allowed
             </span>
-          </div>
+            <span *ngIf="registerform.get('student_lname').errors?.required">Last Name is required</span>
+          </span>
         </div>
-        <!-- =========================================================================================================== -->
+
         <div class="form-group">
           <label class="control-label" for="student_id">Student Number</label>
-          <div class="input-group">
-
-            <input type="text" class="form-control mr-sm-2" id="student_id" formControlName="student_id"
-              [(ngModel)]="student_id" placeholder="Enter Student Number" [ngClass]="{ 'is-invalid': (submitted || 
+          <input type="text" class="form-control mr-sm-2" id="student_id" formControlName="student_id"
+            placeholder="Enter Student Number" [ngClass]="{ 'is-invalid': (submitted || 
               (registerform.get('student_id').touched ||
               registerform.get('student_id').dirty) &&
-              registerform.get('student_id').errors) }" />
+              registerform.get('student_id').errors) }" autocomplete="off" />
 
-            <span *ngIf="(submitted || (registerform.get('student_id').touched ||
-            registerform.get('student_id').dirty) &&
-            registerform.get('student_id').errors)" class="invalid-feedback">
-
-              <span *ngIf="registerform.get('student_id').errors?.required">Student Number is required</span>
+          <span class="invalid-feedback" *ngIf="(submitted || (registerform.get('student_id').touched ||
+            registerform.get('student_id').dirty) && registerform.get('student_id').errors )">
+            <span *ngIf="registerform.get('student_id').errors?.required">
+              Student Number is required
             </span>
-          </div>
+            <span *ngIf="registerform.get('student_id').errors?.minlength ||
+            registerform.get('student_id').errors?.maxlength">
+              Student Number must be 9
+            </span>
+            <span *ngIf="registerform.get('student_id').errors?.pattern">
+              And Only numbers are allowed
+            </span>
+          </span>
         </div>
 
-        <div class="form-group dropdown ">
+        <div class="form-group ">
           <label for="fac_id" class="col-lg-2 control-label">Faculty</label>
-          <div class="input-group">
-            <!-- [(ngModel)]="fac_id" -->
-            <select id="fac_id" class="form-control" formControlName="fac_id" [ngClass]="{ 'is-invalid': (submitted || 
-            (registerform.get('fac_id').touched ||
-              registerform.get('fac_id').dirty) &&
-              registerform.get('fac_id').errors) }">
-              <option class="" [class.selected]>-- Select Faculty --</option>
-              <option class="" *ngFor="let fac of faculties" (change)="selectedFaculty(fac.fac_id)"
-                [value]="fac.fac_id">
-                {{fac.fac_name}} </option>
-            </select>
 
-            <span *ngIf="(submitted || (registerform.get('fac_id').touched ||
-            registerform.get('fac_id').dirty) &&
+          <select id="fac_id" class="custom-select form-control" formControlName="fac_id" [ngClass]="{ 'is-invalid': (submitted || 
+            (registerform.get('fac_id').touched ||registerform.get('fac_id').dirty) &&
+              registerform.get('fac_id').errors) }">
+            <option [value]="0">-- Select Faculty --</option>
+            <option *ngFor="let fac of faculties" [value]="fac.fac_id">{{fac.fac_name}} </option>
+          </select>
+
+          <span *ngIf="(submitted || (registerform.get('fac_id').touched || registerform.get('fac_id').dirty) &&
             registerform.get('fac_id').errors)" class="invalid-feedback">
 
-              <span *ngIf="registerform.get('fac_id').errors?.required">Faculty is required</span>
-            </span>
-          </div>
+            <span *ngIf="registerform.get('fac_id').errors?.required">Faculty is required</span>
+          </span>
         </div>
 
         <div class="form-group">
           <label class="control-label" for="student_password">Password</label>
-          <div class="input-group">
+          <input type="password" class="form-control mr-sm-2" id="student_password" formControlName="student_password"
+            placeholder="Enter Password" [ngClass]="{ 'is-invalid': (submitted || 
+              (registerform.get('student_password').touched || registerform.get('student_password').dirty) &&
+              registerform.get('student_password').errors)  }" autocomplete="off" />
 
-            <input type="password" class="form-control mr-sm-2" id="student_password" formControlName="student_password"
-              [(ngModel)]="student_password" placeholder="Enter Password" [ngClass]="{ 'is-invalid': (submitted || 
-              (registerform.get('student_password').touched ||
-              registerform.get('student_password').dirty) &&
-              registerform.get('student_password').errors)  }" />
-
-            <span *ngIf="(submitted || (registerform.get('student_password').touched ||
+          <span *ngIf="(submitted || (registerform.get('student_password').touched ||
             registerform.get('student_password').dirty) &&
             registerform.get('student_password').errors)" class="invalid-feedback">
 
-              <span *ngIf="registerform.get('student_password').errors?.required">Password is required</span>
-              <span
-                *ngIf="registerform.get('student_password').errors?.minlength || loginForm.get('student_password').errors?.maxlength">
-                Password must not be less than 8 characters</span>
-            </span>
-          </div>
+            <span *ngIf="registerform.get('student_password').errors?.required">Password is required</span>
+            <span *ngIf="registerform.get('student_password').errors?.minlength ">
+              Password must not be less than 8 characters</span>
+          </span>
         </div>
 
         <div class="form-group">
           <label class="control-label" for="password_Conf">Comfirm Password</label>
-          <div class="input-group">
-
-            <input type="password" class="form-control mr-sm-2" id="password_Conf" formControlName="password_Conf"
-              placeholder="Enter Comfirm Password" [ngClass]="{ 'is-invalid': (submitted || (registerform.get('password_Conf').touched ||
+          <input type="password" class="form-control mr-sm-2" id="password_Conf" formControlName="password_Conf"
+            placeholder="Enter Comfirm Password" [ngClass]="{ 'is-invalid': (submitted || (registerform.get('password_Conf').touched ||
               registerform.get('password_Conf').dirty) &&
-              registerform.get('password_Conf').errors) }" />
+              registerform.get('password_Conf').errors) }" autocomplete="off" />
 
-            <span *ngIf="(submitted || (registerform.get('password_Conf').touched ||
+          <span *ngIf="(submitted || (registerform.get('password_Conf').touched ||
             registerform.get('password_Conf').dirty) &&
             registerform.get('password_Conf').errors)" class="invalid-feedback">
 
-              <span *ngIf="registerform.get('password_Conf').errors?.required">Comfirm Password is required</span>
-              <!-- <span *ngIf="registerform.get('password_Conf').errors?.required">Password does not match</span> -->
-            </span>
-          </div>
+            <span *ngIf="registerform.get('password_Conf').errors?.required">Comfirm Password is required</span>
+            <span *ngIf="registerform.get('password_Conf').errors?.mustMatch">Password does not match</span>
+          </span>
         </div>
         <!-- ======================================================== -->
         <div class="form-group form-check form-check-inline">
           <label class="form-check-label" for="vote_rules">
 
-            <input class="form-check-input" type="checkbox" id="vote_rules" value="option1" data-toggle="modal"
-              data-backdrop="static" data-keyboard="false" data-target="#rulesModal" formControlName="vote_rules"
-              [ngClass]="{ 'is-invalid': (submitted || 
-              (registerform.get('vote_rules').touched ||
-              registerform.get('vote_rules').dirty) &&
-              registerform.get('vote_rules').errors) }">Agree to terms and conditions of Voting
-
-            <span *ngIf="(submitted || (registerform.get('vote_rules').touched ||
-            registerform.get('vote_rules').dirty) &&
-            registerform.get('vote_rules').errors)" class="invalid-feedback">
-              <span *ngIf="registerform.get('vote_rules').errors?.required">Agree to terms and conditions</span>
-            </span>
-            <!-- ======================================================== -->
+            <input class="form-check-input" type="checkbox" id="vote_rules" value="option1"
+              formControlName="vote_rules">I
+            accept the terms of use and Privacy Policy of Voting
           </label>
+
+
+          <span class="invalid-feedback" *ngIf="setError">{{setError}}</span>
+          <!-- ======================================================== -->
         </div>
+        <br>
+        <div>
+          <a data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#rulesModal"
+            class="bg-ight text-primary"> view t&c's
+          </a>
+        </div>
+        <br>
 
-        <div class="panel-footer form-row">
+        <div align="center" class="panel-footer form-row">
+
           <div class="form-group col-md-4">
-
             <button [disabled]="loading || !registerform.valid" type="submit"
-              class="btn btn-primary btn-lg btn-block shadow p-3 mb-5 rounded bg-info">
+              class="btn btn-outline-primary btn-lg btn-block shadow rounded">
               <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
               Register
             </button>
-
           </div>
-          <div class="form-group col-md-4">
 
-            <button type="reset" class="btn btn-lg btn-block shadow p-3 mb-5 rounded">
+          <div class="form-group col-md-4">
+            <button type="reset" class="btn btn-outline-secondary btn-lg btn-block shadow rounded">
               Clear
             </button>
-
           </div>
+
         </div>
       </div>
     </div>
@@ -179,7 +168,6 @@
     <!--rules modal-->
     <div class="modal fade" id="rulesModal" role="dialog">
       <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Rules and Regulations</h4>
@@ -201,7 +189,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Accept</button>
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block shadow rounded"
+              data-dismiss="modal">Dismiss</button>
           </div>
         </div>
       </div>
@@ -209,4 +198,3 @@
 
   </form>
 </div>
-<app-footer></app-footer>

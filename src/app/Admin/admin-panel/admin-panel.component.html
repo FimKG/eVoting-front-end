@@ -1,154 +1,278 @@
-<html>
-<!-- <app-nav></app-nav> -->
-<nav>
-<app-admin-navigation></app-admin-navigation>
-</nav>
-
-<body>
-  <div class="container" style="margin-left: 33%">
-	<div class="row">
-	  <div class="col-lg-2 col-sm-6">
-		<div class="circle-tile ">
-		 
-		  <div class="circle-tile-content dark-blue">
-			<div class="circle-tile-description text-faded">Registered Voters </div>
-			<div class="circle-tile-number text-faded ">265</div>
-			
-		  </div>
-		</div>
-	  </div>
-	   
-	  <div class="col-lg-2 col-sm-6">
-		<div class="circle-tile ">
-		  
-		  <div class="circle-tile-content red">
-			<div class="circle-tile-description text-faded"> Total SRC Votes</div>
-			<div class="circle-tile-number text-faded ">10</div>
-			
-		  </div>
-		</div>
-	  </div> 
-  
-	<div class="col-lg-2 col-sm-6">
-		<div class="circle-tile ">
-		  
-		  <div class="circle-tile-content dark-blue">
-			<div class="circle-tile-description text-faded">Total CSRC Votes</div>
-			<div class="circle-tile-number text-faded ">265</div>
-			
-		  </div>
-		</div>
-	  </div>
-	   
-	  <div class="col-lg-2 col-sm-6">
-		<div class="circle-tile ">
-		  
-		  <div class="circle-tile-content red">
-			<div class="circle-tile-description text-faded"> Total SRC Votes </div>
-			<div class="circle-tile-number text-faded ">10</div>
-			
-		  </div>
-		</div>
-	  </div> 
-	  </div>
-	  </div>
-	  <!-- <hr> -->
-	  <br>
-	  <div  class="container" >
-			
-		<h3>Central SRC</h3>        
-		<table class="table">
-		  <thead>
-			<tr>
-			  <th>Logo</th>
-			  <th>Party name</th>
-			  <th>Votes</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr *ngFor="let el of csrcVotes ; let i = index">
-				
-				<td><img src="{{el.csrc_img}}" height="30"></td>
-				<td>{{el.csrc_name}}</td>
-				<td>{{el.res}}</td>
-			</tr>
-			
-		  </tbody>
-		  
-		</table>
-	 
-	  <br>
-	  
-	  
-	  
-		<h3>Institutional SRC</h3>        
-		<table class="table">
-		  <thead>
-			<tr>
-				<th>Logo</th>
-				<th>Party name</th>
-				<th>Votes</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr *ngFor="let isrc_el of isrcVotes ; let i = index" >
-				<td ><img height="30" src="{{isrc_el.isrc_img}}">{{isrc_el.isrc_name}}</td>
-				<td>{{isrc_el.isrc_name}}</td>
-				<td>{{isrc_el.results}}</td>
-			</tr>	
-		  </tbody>	 
-		</table>
-	 
-	 
-			
-		<h3>Faculty Candidates</h3>   
-		<div class="dropdown ">
-					
-				<div class="input-group">
-				  <select id="fac_id" class="form-control" [(ngModel)]="fac_id">
-					<option class="" [class.selected]>-- Filter By Faculty --</option>
-					<option class="" *ngFor="let fac of faculties" (change)="selectedFaculty(fac.fac_id)" (click)="getSelectedFac(faculty)" [value]="fac.fac_id">
-					  {{fac.fac_name}} </option> 
-				  </select>
-				 
-				</div>
-			  </div>     
-		<table class="table">
-		  <thead>
-			<tr>
-				<th>Faculty</th>
-				<th>Image</th>
-				<th>Name</th>
-				<th>Position</th>
-				<th>Votes</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			<tr *ngFor="let sfc_el of sfcVotes ; let i = index" >
-				<td>{{sfc_el.fac_name}}</td>
-				<td ><img height="30" src="{{sfc_el.sfc_img}}">{{sfc_el.sfc_img}}</td>
-				<td>{{sfc_el.sfc_name}}</td>
-				<td>{{sfc_el.sfc_position}}</td>
-				<td>{{sfc_el.results}}</td>
-			</tr>	
-		  </tbody>	 
-		</table>
-	 </div>
-	</body>
-	<div ></div>
-	  <footer>
-		<div class="text-center p-3 border border-right-0 border-bottom-0 border-left-0 border-white">
-
-			© {{date}} Copyright: <a routerLink="/home"> E-voting.co.za</a>
-				
-	
-		</div>
-	  </footer>
-	
-	  </html>
- 
-	   
-	 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="cp-txt"><span class="fas fa-cog fa-spin" aria-hidden="true"></span> Dashboard
+            </h1>
+        </div>
+    </div>
+</div>
 
 
- 
+<div class="container">
+    <div class="row">
+        <!--- Aside-Bar -->
+        <div class="col-md-3">
+            <div class="card shadow rounded-lg border border-dark">
+                <div class="card-header bg-secondary text-white">
+                    Dashboard
+                </div>
+                <div class="card-body ">
+                    <a routerLink="/viewisrc" l class="bg-ight text-dark"><i class="fa fa-eye"></i> Manage
+							ISRC
+						</a>
+                </div>
+                <div class="card-body">
+                    <a routerLink="/viewcsrc" class="bg-ight text-dark"><i class="fa fa-eye"></i> Manage
+							CSRC
+						</a>
+                </div>
+                <div class="card-body">
+                    <a routerLink="/adminregister" class="bg-ight text-dark"><i class="fa fa-eye"></i> Manage
+							SFC
+						</a>
+                </div>
+                <div class="card-body ">
+                    <a routerLink="/adminvotes" l class="bg-ight text-dark"><i class="fa fa-eye"></i> View Votes
+						</a>
+                </div>
+                <div class="card-body">
+                    <a data-toggle="modal" data-target="#sfcModal" class="bg-ight text-dark"><i
+								style="color: green;" class="fas fa-plus"></i> Insert New
+							SFC
+						</a>
+                </div>
+                <div class="card-body">
+                    <a data-toggle="modal" data-target="#isrcModal" class="bg-ight text-dark"><i
+								style="color: green;" class="fas fa-plus"></i> Insert New
+							ISRC
+						</a>
+                </div>
+                <div class="card-body">
+                    <a data-toggle="modal" data-target="#csrcModal" class="bg-ight text-dark"><i
+								style="color: green;" class="fas fa-plus"></i> Insert
+							New CSRC
+						</a>
+                </div>
+            </div>
+        </div>
+        <!--- Main Overview -->
+        <div class="col-md-9">
+            <div class="card shadow rounded-lg border border-dark">
+                <div class="card-header bg-dark text-white">Overview</div>
+                <div class="card-body">
+                    <div class="row mb-3">
+
+                        <div class="col-xl-3 col-sm-6 py-2">
+                            <div class="card text-white bg-danger h-100">
+                                <div class="card-body ">
+                                    <div class="rotate">
+                                        <i class="fas fa-vote-yea fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Total CSRC Parties</h6>
+                                    <h1 class="display-4">{{csrcVotes}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 py-2">
+                            <div class="card text-white bg-danger h-100">
+                                <div class="card-body">
+                                    <div class="rotate">
+                                        <i class="fas fa-vote-yea fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Total ISRC Parties</h6>
+                                    <h1 class="display-4">{{isrcVotes}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 py-2">
+                            <div class="card text-white bg-danger h-100">
+                                <div class="card-body">
+                                    <div class="rotate">
+                                        <i class="fas fa-vote-yea fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Total SFC Candidates</h6>
+                                    <h1 class="display-4">{{sfcVotes}}</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-xl-3 col-sm-6 py-2">
+                            <div class="card bg-warning text-white h-100">
+                                <div class="card-body ">
+                                    <div class="rotate">
+                                        <i class="fas fa-poll fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Voted Users</h6>
+                                    <h1 class="display-4">{{voted}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 py-2">
+                            <div class="card bg-success text-white h-100">
+                                <div class="card-body ">
+                                    <div class="rotate">
+                                        <i class="fa fa-user fa-4x"></i>
+                                    </div>
+                                    <h6 class="text-uppercase">Registered Voters</h6>
+                                    <h1 class="display-4">{{numVoters}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for adding SFC Candidates -->
+<div class="modal fade" id="sfcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register SFC Candidate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+            </div>
+            <div class="modal-body">
+                <!-- Register Form Start -->
+                <form [formGroup]="registerformSfc" (ngSubmit)="onSubmitSfc()" class="login-form shadow-lg p-3 mb-5 bg-light rounded">
+                    <div class="text-center">
+                        <img [src]="previewUrl" *ngIf="previewUrl" class="avatar img-circle img-thumbnail image-preview" alt="avatar">
+                        <input type="file" class="imgtag text-center center-block file-upload" formControlName="sfc_img" (change)="onFileChange($event)" #fileInput>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control mr-sm-2 " formControlName="sfc_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="student">Student Number</label>
+                        <input type="text" class="form-control mr-sm-2" formControlName="sfc_id" />
+                    </div>
+                    <div class="form-group dropdown ">
+                        <label for="fac_id" class="col-lg-2 control-label">Faculty</label>
+                        <!--   (change)="selectedFaculty(fac.fac_id)"-->
+                        <select id="fac_id" class="form-control browser-default custom-select" data-max-options="1" formControlName="fac_id">
+								<option selected>-- Select Faculty --</option>
+								<option *ngFor="let fac of faculties" [value]="fac.fac_id"> {{fac.fac_name}}
+								</option>
+							</select>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="form-group dropdown ">
+                        <label for="sfc_position" class="col-lg-2 control-label">Position</label>
+                        <select class="form-control browser-default custom-select" formControlName="sfc_position">
+								<option selected>Select Position</option>
+								<option value="Secretary">Secretary</option>
+								<option value="Chairperson">Chairperson</option>
+							</select>
+                    </div>
+                    <!--rules modal-->
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <!-- data-dismiss="modal" -->
+                        <button class="btn btn-primary" type="submit">Register</button>
+                        <button type="reset" class="btn btn-link">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- modal for adding ISRC Candidates -->
+<div class="modal fade" id="isrcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register ISRC Candidate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+            </div>
+            <div class="modal-body">
+                <!-- Register Form Start -->
+                <form [formGroup]="registerformisrc" (ngSubmit)="isrcRegistration()" class="login-form shadow-lg p-3 mb-5 bg-light rounded">
+                    <div class="text-center">
+
+                        <h2></h2>
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <input type="file" class="text-center center-block file-upload" name="isrc_img" formControlName="isrc_img" (change)="onFileChange($event)" #fileInput>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Party Name</label>
+                        <input type="text" class="form-control mr-sm-2 " formControlName="isrc_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Party Acronym</label>
+                        <input type="text" class="form-control mr-sm-2 " formControlName="isrc_acronym">
+                    </div>
+                    <div class="form-group">
+                        <label for="student">Party ID</label>
+                        <input type="text" class="form-control mr-sm-2" formControlName="isrc_id" />
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <!-- data-dismiss="modal" -->
+                        <button class="btn btn-primary" type="submit">Register</button>
+                        <button type="reset" class="btn btn-link">Cancel</button>
+                    </div>
+
+                </form>
+                <!-- End Register Form  -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal for adding CSRC Candidates -->
+<div class="modal fade" id="csrcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Register CSRC Candidate</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+            </div>
+            <div class="modal-body">
+                <!-- Register Form Start -->
+                <form [formGroup]="registerformcsrc" (ngSubmit)="csrcRegistration()" class="login-form shadow-lg p-3 mb-5 bg-light rounded">
+                    <div class="text-center">
+
+                        <h2></h2>
+                        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <input type="file" class="text-center center-block file-upload" name="csrc_img" formControlName="csrc_img" (change)="onFileChange($event)" #fileInput>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Party Name</label>
+                        <input type="text" class="form-control mr-sm-2 " formControlName="csrc_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Party Acronym</label>
+                        <input type="text" class="form-control mr-sm-2 " formControlName="csrc_acronym">
+                    </div>
+                    <div class="form-group">
+                        <label for="student">Party ID</label>
+                        <input type="text" class="form-control mr-sm-2" formControlName="csrc_id" />
+                    </div>
+                    <br>
+                    <br>
+                    <div class="form-group">
+                        <!-- data-dismiss="modal" -->
+                        <button class="btn btn-primary" type="submit">Register</button>
+                        <button type="reset" class="btn btn-link">Cancel</button>
+                    </div>
+                </form>
+                <!-- End Register Form  -->
+            </div>
+        </div>
+    </div>
+</div>
+<br>

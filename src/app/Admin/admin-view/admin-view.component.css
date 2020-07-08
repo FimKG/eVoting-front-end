@@ -1,4 +1,4 @@
-.custab{
+/* .custab{
     border: 1px solid #ccc;
     padding: 5px;
     margin: 5% 0;
@@ -8,4 +8,8 @@
 .custab:hover{
     box-shadow: 3px 3px 0px transparent;
     transition: 0.5s;
-    }
+}
+
+img {
+    border-radius: 50%;
+} */

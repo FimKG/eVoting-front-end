@@ -1,12 +1,12 @@
-<footer class="page-footer font-small text-center text-md-left">
+<footer class="font-small text-center text-white text-md-left  navb">
 
 	<div class="text-center p-3  text-md-left ">
 		<div class="row">
 			<!-- Content -->
 			<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
 				<h5 class="text-uppercase font-weight-bold">E-voting</h5>
-				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger" style="width: 60px;">
-				<p>Welcome to the TUT online voting site. By continuing to browse the this website means you agree to
+				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger forhr">
+				<p>Welcome to the TUT online voting site. By continuing to browse this website means you agree to
 					the
 					following
 					terms and condition of use, which forms part of our privacy policy and are in line with the
@@ -18,26 +18,31 @@
 			<div class="col-md-3 mb-md-0 mb-3 ">
 				<!-- Links ul -->
 				<h5 class="text-uppercase">Useful Links</h5>
-				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger" style="width: 60px;">
+				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger forhr">
 				<ul class="list-unstyled ">
 					<li>
-						<a routerLink="/home">Home</a>
+						<a *ngIf="footServ.isLoggedIn()" routerLink="/home">Home</a>
+					</li>
+
+					<li>
+						<a *ngIf="!footServ.isLoggedIn()" routerLink="/home">Home</a>
+					</li>
+
+					<li>
+						<a *ngIf="!footServ.isLoggedIn()" routerLink="/login">Login</a>
 					</li>
 					<li>
-						<a routerLink="/login">Login</a>
+						<a *ngIf="!footServ.isLoggedIn()" routerLink="/register">Register</a>
 					</li>
 					<li>
-						<a routerLink="/register">Register</a>
-					</li>
-					<li>
-						<a routerLink="/votes">Votes</a>
+						<a *ngIf="footServ.isLoggedIn()" routerLink="/votes">Votes</a>
 					</li>
 				</ul>
 			</div>
 
 			<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
 				<h6 class="text-uppercase font-weight-bold">Contact</h6>
-				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger" style="width: 60px;">
+				<hr class="mb-4 mt-0 d-inline-block mx-auto bg-danger forhr">
 				<p>
 					<i class="fas fa-home mr-3"></i> 2 Aubrey Matlakala St, Soshanguve, Pretoria, 0001, South Africa</p>
 				<p>
@@ -56,7 +61,7 @@
 	<div class="text-center p-3 border border-right-0 border-bottom-0 border-left-0 border-white">
 
 		© {{date}} Copyright: <a routerLink="/home"> E-voting.co.za</a>
-		<a class="float-right" routerLink="/adminlogin">Admin</a>
+		<a class="float-right" *ngIf="!footServ.isLoggedIn()" routerLink="/adminlogin">Admin</a>
 
 	</div>
 

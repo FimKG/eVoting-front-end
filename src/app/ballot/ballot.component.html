@@ -1,4 +1,214 @@
-<app-nav></app-nav>
+
+
+<div class="card text-center">
+	<div class="card-header">
+		<h3 class="card-title">Voting Results </h3>
+	</div>
+
+	<div class="card-body ">
+
+
+
+		<!-- ========================================================= 1 ============================================================ -->
+		<div class="card-deck">
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Institutional SRC</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of isrcVotes ; let i = index">
+							<td><img height="30" src="{{isrc_el.isrc_img}}"></td>
+							<td>{{isrc_el.isrc_name}}</td>
+							<td>{{isrc_el.results}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalisrc}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Central SRC</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let elect2 of csrcVotes ; let i = index">
+							<td><img height="30" src="{{elect2.csrc_img}}"></td>
+							<td>{{elect2.csrc_name}}</td>
+							<td>{{elect2.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalcsrc}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Humanities</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of humanities ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalhumanities}}</small>
+				</div>
+			</div>
+		</div>
+		<!-- ===================================================================================================================== -->
+		<br>
+		<!-- ========================================================= 2 ============================================================ -->
+		<div class="card-deck">
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Information and Communication Technology</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of ict ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalIct}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Economic And Finance</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of economics ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totaleconomics}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Management Sciences</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of management ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalmanagement}}</small>
+				</div>
+			</div>
+		</div>
+		<!-- ===================================================================================================================== -->
+		<br>
+		<!-- ========================================================= 3 ============================================================ -->
+		<div class="card-deck">
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Engineering and Built Environment</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of eng ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totaleng}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">
+					Science</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of science ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalscience}}</small>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-header border-success rounded-lg text-white" style="background-color: #0202028e">The
+					Arts</div>
+				<div class="card-body">
+					<table class="table" id="group1">
+						<tr class="thead-light">
+							<th *ngFor="let head of head_isrc" scope="col">{{head}} </th>
+						</tr>
+						<tr *ngFor="let isrc_el of isrcVotes ; let i = index">
+							<td><img height="30" src="{{isrc_el.sfc_img}}"></td>
+							<td>{{isrc_el.sfc_name}}</td>
+							<td>{{isrc_el.res}}</td>
+						</tr>
+					</table>
+
+				</div>
+				<div class="card-footer">
+					<small class="text-muted fontsizeb">Total Votes: {{totalart}}</small>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ===================================================================================================================== -->
+
+
+
+
+
+	<!-- 
 <br>
 <div class="container-fluid ">
 	<div class="">
@@ -50,32 +260,35 @@
 				</table>
 			</div>
 		</div>
+			<!-.- ================= Need Fixing - focuses on one information at that specified table values ==================================================================== -.->
 		
-		<div *ngFor="let el of fac ;" id="ballot" class="col-sm-6 offset-sm-3 table shadow p-3 mb-5 bg-white rounded">
-				<div id="csrc_section">
-					<br>
-					<div class="rounded-lg" style="background-color: #0202028e"> 
-						<h2 align="center"  class="text-white ">{{el.fac_name}}</h2>
-					</div>
-					
-					<table class="table" id="group1">
-						<tr class="thead-light">
-							<th *ngFor="let head of head_sfc" scope="col">{{head}} </th>
-						</tr>
-						<tr *ngFor="let el of csrcVotes ; let i = index">
-							<td>{{i+1}}</td>
-							<td>{{el.csrc_name}}</td>
-							<td>{{el.res}}</td>
-						</tr>
-						<tr>
-							<td>{{''}}</td>
-							<td>{{'Total Votes'}}</td>
-							<td>{{iv}}</td>
-						</tr>
-					</table>
+			<div *ngFor="let el of fac ;" id="ballot" class="col-sm-6 offset-sm-3 table shadow p-3 mb-5 bg-white rounded">
+			<div id="csrc_section">
+				<br>
+				<div class="rounded-lg" style="background-color: #0202028e">
+					<h2 align="center" class="text-white ">{{el.fac_name}}</h2>
 				</div>
+	
+				<table class="table" id="group1">
+					<tr class="thead-light">
+						<th *ngFor="let head of head_sfc" scope="col">{{head}} </th>
+					</tr>
+					<tr *ngFor="let el of csrcVotes ; let i = index">
+						<td>{{i+1}}</td>
+						<td>{{el.csrc_name}}</td>
+						<td>{{el.res}}</td>
+					</tr>
+					<tr>
+						<td>{{''}}</td>
+						<td>{{'Total Votes'}}</td>
+						<td>{{iv}}</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		
+	<!-.- ================================================= End ==================================================================== -.->
+		
     </div>
-</div>
-<app-footer></app-footer>
+</div> -->
+

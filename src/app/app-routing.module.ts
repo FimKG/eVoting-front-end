@@ -1,54 +1,65 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// =================================================
-import { AuthGuard } from './_helpers';
-// =================================================
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ContactusComponent } from './home/contactus/contactus.component';
 
-import { AdminPanelComponent } from './Admin/admin-panel/admin-panel.component';
-import { HomeComponent } from './home/home.component';
+import { AppservService } from 'src/app/services/exports';
+import { Role } from 'src/app/services/models/role';
 
-import { AdminNavigationComponent } from './Admin/admin-navigation/admin-navigation.component';
-import { AdminRegisterComponent } from './Admin/admin-register/admin-register.component';
-import { AdminViewComponent } from './Admin/admin-view/admin-view.component';
-import { AdminVotesComponent } from './Admin/admin-votes/admin-votes.component';
-import { PostvoteComponent } from './ballot/postvote/postvote.component';
+
+import { HomeComponent } from 'src/app/home/home.component';
+import { LoginComponent } from 'src/app/login/login.component';
+import { RegisterComponent } from 'src/app/register/register.component';
+
+import { AdminPanelComponent } from 'src/app/Admin/admin-panel/admin-panel.component';
+import { AdminNavigationComponent } from 'src/app/Admin/admin-navigation/admin-navigation.component';
+import { AdminRegisterComponent } from 'src/app/Admin/admin-register/admin-register.component';
+import { AdminViewComponent } from 'src/app/Admin/admin-view/admin-view.component';
+import { AdminVotesComponent } from 'src/app/Admin/admin-votes/admin-votes.component';
+import { AdminCSRCViewsComponent } from './Admin/admin-view/admin-CSRC-views/admin-CSRC-views.component';
+import { AdminSRCViewComponent } from './Admin/admin-view/admin-SRC-view/admin-SRC-view.component';
+import { PostvoteComponent } from 'src/app/ballot/postvote/postvote.component';
+
+import { PageNotFoundComponent } from 'src/app/home/404/page-not-found.component';
 //Ballot
-import { BallotComponent } from './ballot/ballot.component';
-import { SfcComponent } from './ballot/sfc/sfc.component';
-import { CsrcComponent } from './ballot/csrc/csrc.component';
-import { IsrcComponent } from './ballot/isrc/isrc.component';
-import { AdminLoginComponent } from './Admin/admin-login/admin-login.component';
+import { BallotComponent } from 'src/app/ballot/ballot.component';
+import { SfcComponent } from 'src/app/ballot/sfc/sfc.component';
+import { CsrcComponent } from 'src/app/ballot/csrc/csrc.component';
+import { IsrcComponent } from 'src/app/ballot/isrc/isrc.component';
+import { AdminLoginComponent } from 'src/app/Admin/admin-login/admin-login.component';
 
 const routes: Routes = [
-  // =================================================
-// , canActivate: [AuthGuard]
-// =================================================
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'contactus', component: ContactusComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'votes', component: BallotComponent },
 
   { path: 'adminlogin', component: AdminLoginComponent },
-  
   { path: 'adminpanel', component: AdminPanelComponent },
   { path: 'adminnavigation', component: AdminNavigationComponent },
   { path: 'adminregister', component: AdminRegisterComponent },
-  { path: 'adminview', component: AdminViewComponent },
+  { path: 'viewisrc', component: AdminSRCViewComponent },
+  { path: 'viewcsrc', component: AdminCSRCViewsComponent },
   { path: 'adminvotes', component: AdminVotesComponent },
-  { path: 'ballot/postvote', component: PostvoteComponent },
-  { path: 'votes', component: BallotComponent },
-  { path: 'ballot/sfc', component: SfcComponent },
-  { path: 'ballot', component: IsrcComponent },
-  { path: 'ballot/csrc', component: CsrcComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
-  ,
-  { path: '**', redirectTo: '' }
+  { path: 'adminview', component: AdminViewComponent },
 
-  // { path: '', component: LoginComponent, canActivate: [AuthGuard] }
+  //  https://jasonwatmore.com/post/2018/11/22/angular-7-role-based-authorization-tutorial-with-example 
+  // role based authorization
 
+  // { path: 'adminlogin', component: AdminLoginComponent },
+  // { path: 'adminpanel', component: AdminPanelComponent, canActivate: [AppservService], data: { roles: ['Admin'] },
+  // { path: 'adminnavigation', component: AdminNavigationComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+  // { path: 'adminregister', component: AdminRegisterComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+  // { path: 'viewisrc', component: AdminSRCViewComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+  // { path: 'viewcsrc', component: AdminCSRCViewsComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+  // { path: 'adminvotes', component: AdminVotesComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+  // { path: 'adminview', component: AdminViewComponent, canActivate: [AppservService], data: { roles: [Role.Admin] },
+
+  { path: 'postvote', component: PostvoteComponent, canActivate: [AppservService] },
+  { path: 'sfc', component: SfcComponent, canActivate: [AppservService] },
+  { path: 'ballot', component: IsrcComponent, canActivate: [AppservService] },
+  { path: 'csrc', component: CsrcComponent, canActivate: [AppservService] },
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

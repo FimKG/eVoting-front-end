@@ -1,27 +1,114 @@
-<nav class="navbar navbar-default">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">TechnoGeeK</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html">Dashboard</a></li>
-        <li><a href="pages.html">Pages</a></li>
-        <li><a href="posts.html">Posts</a></li>
-        <li><a href="users.html">Users</a></li>
-      </ul>
+<app-admin-panel></app-admin-panel>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="index.html">Welcome, Madhav</a></li>
-        <li><a href="login.html">Logout</a></li>
-      
-      </ul>
-    </div><!--/.nav-collapse -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-9">
+      <br>
+      <div class="card shadow rounded-lg border border-dark">
+        <div class="card-header bg-info text-white">Central SRC Votes</div>
+        <div class="card-body">
+          <!-- Table -->
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Logo</th>
+                <th scope="col">name</th>
+                <th scope="col">Total Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let el of isrcVotes ; let i = index">
+                <td scope="col">{{el.isrc_id}}</td>
+                <td scope="col"><img src={{el.isrc_img}} height="30"></td>
+                <td scope="col">{{el.isrc_name}}</td>
+                <td scope="col">{{el.results}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <p class="text-center"><b>{{isrcMsg}}</b></p>
+          </div>
+        </div>
+      </div>
+      <br>
+     <!-- <div>
+        <google-chart width="600" [title]="chart.title" [type]="chart.type" [data]="chart.data"
+          [columnNames]="chart.columnNames" [options]="chart.options">
+        </google-chart>
+
+        
+
+         <raw-chart [chartData]="rawChartData" [dynamicResize]="true" [formatter]="rawFormatter"></raw-chart> 
+      </div>-->
+      <div class="card shadow rounded-lg border border-dark">
+        <div class="card-header bg-info text-white">Central SRC Votes</div>
+        <div class="card-body">
+          <!-- Table -->
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Logo</th>
+                <th scope="col">name</th>
+                <th scope="col">Total Votes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let el of csrcVotes ; let i = index">
+                <td scope="col">{{el.csrc_id}}</td>
+                <td scope="col"><img src={{el.csrc_img}} height="30"></td>
+                <td scope="col">{{el.csrc_name}}</td>
+                <td scope="col">{{el.res}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <p class="text-center"><b>{{csrcMsg}}</b></p>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card shadow rounded-lg border border-dark">
+        <div class="card-header bg-info text-white">SFC Votes</div>
+        <div class="card-body">
+          <select id="fac_id" class="custom-select form-control" [(ngModel)]="fac_id" (change)="selectedFaculty()">
+            <option [value]="0">-- Select Faculty --</option>
+            <option *ngFor="let fac of faculties" [value]="fac.fac_id">
+              {{fac.fac_name}}
+            </option>
+
+          </select>
+          <!-- Table -->
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Image</th>
+                <th scope="col">Name</th>
+                <th scope="col">Position</th>
+                <th scope="col">Total Votes</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sfc of sfcVotes ; let i = index">
+                <td scope="col">{{sfc.sfc_id}}</td>
+                <td scope="col"><img src={{sfc.sfc_img}} height="30"></td>
+                <td scope="col">{{sfc.sfc_name}}</td>
+                <td scope="col">{{sfc.sfc_position}}</td>
+                <td scope="col">{{sfc.res}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <p class="text-center"><b>{{sfcMsg}}</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
+</div>
+
+<br>

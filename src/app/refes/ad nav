@@ -1,0 +1,67 @@
+<!-- <div class="search-container">
+                        <form action="/action_page.php">
+                          <input type="text" placeholder="Search.." name="search" [(ngModel)]="search">
+                          <button type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                      </div> -->
+
+
+<!-- Page content -->
+.nav-link a:hover {
+  text-decoration: none;
+}
+
+.dropdown-menu {
+  background-color: rgb(230, 230, 230);
+}
+
+
+<!-- ====================================================================== -->
+<header>
+
+  <nav class="navbar navbar-expand-lg navb static-top">
+
+    <img class="img-logo align-top" src="../../assets/img/GroupLogo.png" alt="logo" />
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-between" id="navbar">
+      <div class="navbar-nav">
+
+        <h1 class="text-center nav-item nav-link">
+          <i class="fas fa-cog"></i> Dashboard
+        </h1>
+      </div>
+
+      <div class="dropdown nav-item nav-link">
+        <a class="dropdown-toggle " data-toggle="dropdown">Admin User</a>
+        <div class="dropdown-menu">
+          <a routerLinkActive="active" routerLink="#" class="adminDropdw" (click)="logut.logout()"><i class="fa fa-fw fa-power-off"></i>
+            Logout</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+</header>
+<!-- ====================================================================== -->
+<!-- <div class="sidebar">
+
+      <div class="dropdown">
+        <div class="navbar-nav">
+          <a routerLinkActive="active" routerLink="#" class="dropdown-toggle" data-toggle="dropdown">Admin User <b class="fa fa-angle-down"></b></a>
+
+          <a routerLinkActive="active" routerLink="#" class="nav-item nav-link" (click)="logut.logout()"> Logout</a>
+        </div>
+      </div>
+
+
+  <a routerLink="/adminregister">Manage Candidates</a>
+  <a routerLink="/adminview">Manage Organization</a>
+  <a routerLink="/adminpanel">Votes</a>
+
+</div> -->

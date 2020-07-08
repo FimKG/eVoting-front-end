@@ -1,0 +1,106 @@
+<app-admin-panel></app-admin-panel>
+
+<div class="container">
+  <div class="row">
+    <!--- Aside-Bar -->
+
+    <div class="col-md-3">
+
+    </div>
+
+    <!---/Aside-Bar -->
+
+    <!--Main-Content-Area-->
+    <div class="col-md-9">
+      <br>
+      <div class="card shadow rounded-lg border border-dark">
+        <div class="card-header bg-info text-white">Institutional CSRC</div>
+        <div class="card-body">
+          <!-- Table -->
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Logo</th>
+                <th scope="col">name</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let vot of csrc_Ballot ; let i = index">
+                <td scope="col">{{vot.csrc_id}}</td>
+                <td scope="col"><img src={{vot.csrc_img}} height="30"></td>
+                <td scope="col">{{vot.csrc_name}}</td>
+                <td scope="col"><a data-toggle="modal" data-target="#editModal" class="btn btn-primary" (click)="edit(vot)">Edit</a></td>
+                <td scope="col"><a class="btn btn-danger " (click)="del(vot.csrc_id)">Delete</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+    </div>
+    <!--/Main-Content-Area--->
+
+    <!-- content -->
+    <!-- modal for adding the users -->
+    <div class="modal fade" *ngFor="let vot of csrc_Ballot ; let i = index" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Candidate</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Register Form Start [formGroup]="registerform" ngForm= (ngSubmit)="onSubmit()"-->
+            <div  
+              class="login-form shadow-lg p-3 mb-5 bg-light rounded">
+              <div class="text-center">
+
+                <h2></h2>
+                <img [src]="previewUrl" class="avatar img-circle img-thumbnail"
+                  alt="avatar">
+                <input type="file" class="text-center center-block file-upload" [(ngModel)]="register.csrc_img"
+                  (change)="onFileChange($event)" accept="image/*">
+              </div>
+              <div class="form-group">
+                <label for="student">ISRC ID</label>
+                <input type="text" class="form-control mr-sm-2" [(ngModel)]="register.csrc_id" />
+              </div>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control mr-sm-2" [(ngModel)]="register.csrc_desc">
+              </div>
+              <div class="form-group">
+                <label for="student">Acronym</label>
+                <input type="text" class="form-control mr-sm-2" [(ngModel)]="register.csrc_name" />
+              </div>
+              <br>
+              <br>
+              <div class="form-group">
+                <!-- data-dismiss="modal" -->
+                <button class="btn btn-primary" type="submit">Update</button>
+                
+                <button type="reset" class="btn btn-link">Cancel</button>
+              </div>
+
+            </div>
+            <!-- registerform : {{re }} -->
+            <!-- End Register Form  -->
+          </div>
+          <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<br>

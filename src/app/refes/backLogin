@@ -1,0 +1,55 @@
+
+router.post('/Login', function (req, res) {
+
+	const student_id = req.body.student_id;
+	const student_password = req.body.student_password;
+
+	if (student_id && student_password) {
+
+		var myQuery = 'SELECT * FROM student WHERE student_id = ? AND student_password = ?';
+
+		db.query(myQuery, [student_id, student_password], function (error, results) {
+
+			if (error) {
+				res.json({
+					data: error,
+					message: "Error: " + error,
+					status: 400
+				})
+			} else {
+				if (results.length > 0) {
+					var payload = {
+						id: results[0].student_id,
+						name: results[0].student_fname,
+						lastName: results[0].student_lname
+					}
+					var token = jwt.sign(payload, secretOrKey, { expiresIn: 60 * 5 }); //made it that the tokken expires in 5 minuts
+
+					res.json({
+						status: 200,
+						message: "LoggedIn Successfully",
+						token: token,
+						data: [results[0].student_fname ,results[0].student_lname]
+					})
+				} else {
+					res.json({
+						status: 401,
+						message: "User : " + student_id + " does not exist"
+					})
+				}
+			}
+		});
+	} 
+	// else if (student_id === "" || student_password == "") {
+	// 	res.json({
+	// 		status: 401,
+	// 		message: "Fields are empty!"
+	// 	})
+	// } 
+	else {
+		res.json({
+			status: 401,
+			message: "Incorect student number and password!"
+		})
+	}
+});

@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { AppservService } from 'src/app/appserv.service'
-import { AlertService } from 'src/app/_services';
+import { AppservService } from 'src/app/services/exports'
+
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -15,130 +14,84 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
   title = 'Login';
 
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
-  error: string;
-  returnUrl: any;
+  loginFmgroup: FormGroup; loading = false; submitted = false; setError: string; returnUrl: any;
 
   students: '';
   staff: '';
-  student_id: '';
-  student_password: '';
-  OTP: '';
-
-  // date: string = "Date : " + new Date().toDateString();
 
   constructor(
-    private loginFm: FormBuilder,
-    private loginservice: AppservService,
-    private router: Router,
-    private toastr: ToastrService,
-    private alert: AlertService,
-    private route: ActivatedRoute,
-
+    private loginFmBuilder: FormBuilder, private appServ: AppservService,
+    private router: Router, private toastr: ToastrService, private route: ActivatedRoute
   ) { }
 
-
   ngOnInit() {
-    this.loginForm = this.loginFm.group({
-      // ,Validators.pattern("^\d{10}$")
-      student_id: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
+    this.loginFmgroup = this.loginFmBuilder.group({
+      student_id: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern("^[0-9]*$")]],
       student_password: ['', [Validators.required, Validators.minLength(8)]],
-      
+      OTP: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4), Validators.pattern("^[0-9]*$")]],
     });
-
-
-      // OTP: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(4)]]
-
     // get return url from route parameters or default to '/'
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'ballot';
   }
-
+  /*//Request opt via email
   requestOTP() {
-    this.loginservice.requestOTP(this.student_id);
-  //   return this.loginservice.sendEmailOTP(this.student_id).pipe(first()).subscribe()
-  }
+    // if (this.loginFmgroup.value.student_id && this.loginFmgroup.value.student_password) {
+    this.appServ.sendEmailOTP(this.loginFmgroup.value.student_id).subscribe()
+    // } else {
+    //   this.setError = "Provide User details";
+    //   this.loading = false;
+    //   this.submitted = false;
+    // }
 
-  // ======================================================================
-  SendVerificationMailOTP() {
-    // console.log(this.student_id)
-    // this.router.navigate(['/ballot/postvote']);
-    this.navigateIfVoted(this.student_id);
-
-  }
-
+  }*/
+  //navigate based on vote status
   navigateIfVoted(student_id) {
-    this.loginservice.check_votes(student_id).subscribe(data => {
-      //navigate based on vote status
-      if (this.isVoted(data.message) == true) {
-        this.router.navigate(['/ballot/postvote']);
+    this.appServ.check_votes(student_id).subscribe(data => {
+      if (data.status == 200) {
+        this.router.navigate(['postvote']);
       } else {
         this.router.navigate([this.returnUrl]);
       }
     });
   }
-  // =============================================================================
-
-  isVoted(msg: String): boolean {
-    msg;
-    if (msg.toLowerCase() == "true") {
-      return true;
-    } else if (msg.toLowerCase() == "false") {
-      return false;
-    }
-  }
 
   // convenience getter for easy access to form fields
   get fm() {
-    return this.loginForm.controls;
+    return this.loginFmgroup.controls;
   }
 
   onSubmit() {
-
-    //Request opt via email
-    this.requestOTP();
-
     this.submitted = true;
-
     // stop here if form is invalid
-    if (this.loginForm.invalid) {
-      return;
-    }
+    // if (this.loginFmgroup.invalid) {
+    //   return;
+    // }
 
-    this.loading = true;
 
-    return this.loginservice.userLogin(this.student_id, this.student_password)
-      .pipe(first())
-      .subscribe(
+
+    if (this.loginFmgroup.value.student_id && this.loginFmgroup.value.student_password) {
+      return this.appServ.userLogin(this.loginFmgroup.value.student_id, this.loginFmgroup.value.student_password, this.loginFmgroup.value.OTP).subscribe(
         data => {
-
+          this.loading = true;
           if (data.status == 200) {
-            //Send user id
-            this.loginservice.set_user(Number(this.student_id));
-
+            sessionStorage.setItem('student_id', this.loginFmgroup.value.student_id)
             this.toastr.success(data.message);
-
-            // this.loginservice.check_votes(this.student_id).subscribe(data => {
-            //   //navigate based on vote status
-            //   if (this.isVoted(data.message) == true) {
-            //     this.router.navigate(['/ballot/postvote']);
-            //   } else {
-            //     this.router.navigate([this.returnUrl]);
-            //   }
-            // });
-
-            //this.navigateIfVoted(this.student_id);
+            this.navigateIfVoted(this.loginFmgroup.value.student_id)
           } else if (data.status == 401) {
-            this.error = data.message;
+            this.setError = data.message;
+            this.loading = false;
           }
-
         }, error => {
-          this.error = error.message;
-          this.alert.error(error);
+          this.setError = "Error: ", error.message;
           this.loading = false;
-
-        })
+          this.submitted = false;
+        }
+      )
+    } else {
+      this.setError = "Provide User details";
+      this.loading = false;
+      this.submitted = false;
+    }
   }
 
   /*

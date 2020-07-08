@@ -1,0 +1,118 @@
+<!--Main-Content-Area-->
+<div class="col-md-9">
+
+
+  <div class="panel panel-default panel-box-shadow">
+    <!-- Default panel contents -->
+    <div class="panel-heading main_bg_color"><i class="fa fa-list-alt"></i> Institutional SRC</div>
+    <div class="panel-body">
+      <!-- Table -->
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Logo</th>
+            <th scope="col">name</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let el of organisation ; let i = index">
+            <td scope="col">{{el.isrc_id}}</td>
+            <td scope="col"><img src={{el.isrc_img}} height="30"></td>
+            <td scope="col">{{el.isrc_name}}</td>
+            <td scope="col"><a class="btn btn-primary " (click)="edit()">Edit</a></td>
+            <td scope="col"><a class="btn btn-danger " (click)="del(el.isrc_id)">Delete</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+</div>
+<!--/Main-Content-Area--->
+
+<!-- content -->
+<!-- modal for adding the users -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Register Candidate</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <!-- Register Form Start -->
+        <form padding ngForm="registerform" (ngSubmit)="onSubmit()"
+          class="login-form shadow-lg p-3 mb-5 bg-light rounded">
+          <div class="text-center">
+
+            <h2></h2>
+            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail"
+              alt="avatar">
+            <input type="file" class="text-center center-block file-upload" name="image" [(ngModel)]="image"
+              (change)="onFileChange($event)" #fileInput>
+          </div>
+
+          <!-- <div class="form-group">
+              <label for="name">image</label>
+              <input type="text" class="form-control mr-sm-2 " name="image" [(ngModel)]="sfc_img">
+            </div> -->
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control mr-sm-2 " name="sfc_name" [(ngModel)]="sfc_name">
+          </div>
+
+          <div class="form-group">
+            <label for="student">Student Number</label>
+            <input type="text" class="form-control mr-sm-2" name="sfc_id" [(ngModel)]="sfc_id" />
+          </div>
+
+          <div class="form-group dropdown ">
+            <label for="fac_id" class="col-lg-2 control-label">Faculty</label>
+            <!--   (change)="selectedFaculty(fac.fac_id)"-->
+            <select id="fac_id" class="form-control browser-default custom-select" data-max-options="1"
+              name="sfc_faculty" [(ngModel)]="sfc_faculty">
+              <option class="" selected>-- Select Faculty --</option>
+              <option *ngFor="let fac of faculties" class="" [value]="fac.fac_id"> {{fac.fac_name}} </option>
+            </select>
+          </div>
+          <!--  -->
+          <div class="form-group dropdown ">
+            <label for="sfc_position" class="col-lg-2 control-label">Position</label>
+            <select class="form-control browser-default custom-select" name="sfc_position" [(ngModel)]="sfc_position">
+              <option selected>Select Position</option>
+              <option value="Secretary">Secretary</option>
+              <option value="2">Chairperson</option>
+            </select>
+          </div>
+
+          <!--rules modal-->
+
+          <br>
+          <br>
+          <div class="form-group">
+            <!-- data-dismiss="modal" -->
+            <button class="btn btn-primary" type="submit">Register</button>
+            <button type="reset" class="btn btn-link">Cancel</button>
+          </div>
+
+        </form>
+  
+        <!-- End Register Form  -->
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppservService } from 'src/app/services/appserv.service';
 
 
 @Component({
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+   private footServ : AppservService
+  ) { }
   date: any;
   ngOnInit() {
 

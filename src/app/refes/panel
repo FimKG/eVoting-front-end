@@ -1,0 +1,174 @@
+<app-admin-navigation></app-admin-navigation>
+<div class="shadow ">
+	<div class="container p-3 ">
+		<div class="row">
+			<!--- Aside-Bar -->
+			<div class="col-md-3">
+				<div class="list-group text-white">
+					<h5 class="list-group-item heading blue"><span class="fas fa-cogs "></span> Dashboard</h5>
+
+					<a data-toggle="tab" href="#adminregister" role="tab" class=" active list-group-item headLinks"><span
+							class="fa fa-eye"></span>
+						Manage
+						Candidates</a>
+
+					<a data-toggle="tab" href="#adminview" role="tab" class="list-group-item headLinks"><span
+							class="fa fa-eye"></span>
+						Manage
+						Organisation </a>
+
+					<!-- <a routerLink="../adminregister" class="list-group-item"><span class="fa fa-eye"></span> View CSRC </a> -->
+
+					<a data-toggle="tab" href="#votes" role="tab" class="list-group-item headLinks"><span
+							class="fa fa-eye"></span> View
+						Votes
+					</a>
+
+					<a routerLink="/adminview" class="list-group-item headLinks"><span class="fa fa-plus"></span>
+						Insert
+						New
+						SFCCandidate</a>
+
+					<a routerLink="/adminview" class="list-group-item headLinks"><span class="fa fa-plus"></span>
+						Insert
+						New
+						ISRC Party</a>
+
+					<a routerLink="/adminview" class="list-group-item headLinks"><span class="fa fa-plus"></span>
+						Insert
+						New
+						CSRC Party</a>
+				</div>
+			</div>
+			<!---/Aside-Bar -->
+
+			<!--Main-Content-Area-->
+			<div class="col-md-9">
+
+				<div class="card shadow border bg-light-light mb-3">
+
+					<div class="border bg-light">
+						<h3 class="text-center">Overview</h3>
+					</div>
+
+					<div class="card-body">
+
+						<div class="row">
+
+							<div class="col-md-4 ">
+								<div class="panel status panel-danger border bg-light">
+									<div class="panel-heading">
+										<h4 class="panel-title text-center"><i class="far fa-user"></i>{{numVoters}}
+										</h4>
+									</div>
+									<div class="panel-body text-center">
+										<h4 class="panel-body text-center">Registered Voters</h4>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-md-4">
+								<div class="panel status panel-danger border bg-light">
+									<h4 class="panel-title text-center"><i class="fa fa-check-square-o"></i>{{10}}</h4>
+									<div class="panel-body text-center">
+										<h4 class="panel-body text-center">Total CSRC Votes</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4 ">
+								<div class="panel status panel-danger border bg-light">
+									<h4 class="panel-title text-center"><i class="fa fa-check-square-o"></i>{{11}}</h4>
+									<div class="panel-body text-center">
+										<h4 class="panel-body text-center">Total ISRC Votes</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4 ">
+								<div class="panel status panel-danger border bg-light">
+									<h4 class="panel-title text-center"><i class="fa fa-check-square-o"></i>{{14}}</h4>
+									<div class="panel-body text-center">
+										<h4 class="panel-body text-center">Total SFC Votes</h4>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+							<div class="border bg-light">
+					<h3 class="text-center">Main Content below</h3>
+				</div>
+
+				<div class="shadow tab-content ">
+
+					<div class="tab-pane fade in active" id="adminregister" >
+						<app-admin-register></app-admin-register>
+					</div>
+			
+					<div class="tab-pane fade in active" id="adminview" >
+						<app-admin-votes></app-admin-votes>
+					</div>
+
+					<div class="tab-pane fade in active" id="votes"  >
+						<app-admin-votes></app-admin-votes>
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<!--/Main-Content-Area--->
+		</div>
+
+		<br/><br/>
+		<div class="tabs">
+		  <div class="tab-button-outer">
+			<ul id="tab-button">
+			  <li><a href="#tab01">Tab 1</a></li>
+			  <li><a href="#tab02">Tab 2</a></li>
+			  <li><a href="#tab03">Tab 3</a></li>
+			  <li><a href="#tab04">Tab 4</a></li>
+			  <li><a href="#tab05">Tab 5</a></li>
+			</ul>
+		  </div>
+		  <div class="tab-select-outer">
+			<select id="tab-select">
+			  <option value="#tab01">Tab 1</option>
+			  <option value="#tab02">Tab 2</option>
+			  <option value="#tab03">Tab 3</option>
+			  <option value="#tab04">Tab 4</option>
+			  <option value="#tab05">Tab 5</option>
+			</select>
+		  </div>
+		
+		  <div id="tab01" class="tab-contents">
+			<h2>Tab 1</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+		  </div>
+		  <div id="tab02" class="tab-contents">
+			<h2>Tab 2</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+		  </div>
+		  <div id="tab03" class="tab-contents">
+			<h2>Tab 3</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+		  </div>
+		  <div id="tab04" class="tab-contents">
+			<h2>Tab 4</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+		  </div>
+		  <div id="tab05" class="tab-contents">
+			<h2>Tab 5</h2>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius quos aliquam consequuntur, esse provident impedit minima porro! Laudantium laboriosam culpa quis fugiat ea, architecto velit ab, deserunt rem quibusdam voluptatum.</p>
+		  </div>
+		</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

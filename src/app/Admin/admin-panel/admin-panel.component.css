@@ -1,126 +1,181 @@
-.breadcrumb{
-	background: #cccccc;
-	color: #333333;
+/* The side navigation menu */
+.sidenav1{
+  
+    
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    width: 300px; /* Set the width of the sidebar */
+    height: 80%; /* Full-height: remove this if you want "auto" height */
+  
 }
-.breadcrumb a{
-	color: #333333;
-}
+.sidebar {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+    position: absolute;
+    height: auto;
+    overflow: fixed;
+    
+  }
+  .nav-link
+  {
+    color: rgb(255, 255, 255);
+  }
+    
+  .sidebar {
+    margin: 0;
+    padding: 0;
+    width: 250px;
+    background-color: #f1f1f1;
+    position: absolute;
+    height: 900px;
+    overflow: fixed;
+    
+  }
 
-.circle-tile {
-    margin-bottom: 15px;
-    text-align: center;
-}
-.circle-tile-heading {
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    border-radius: 100%;
-    color: #FFFFFF;
-    height: 80px;
-    margin: 0 auto -40px;
-    position: relative;
-    transition: all 0.3s ease-in-out 0s;
-    width: 80px;
-}
-.circle-tile-heading .fa {
-    line-height: 80px;
-}
-.circle-tile-content {
-    padding-top: 50px;
-}
-.circle-tile-number {
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-    padding: 5px 0 15px;
-}
-.circle-tile-description {
-    text-transform: uppercase;
-}
-.circle-tile-footer {
-    background-color: rgba(0, 0, 0, 0.1);
-    color: rgba(255, 255, 255, 0.5);
+  img{
+    height: 200px;
+    width: 200px;
+  }
+
+  /*links*/
+  a:active { COLOR: red; TEXT-DECORATION: none }
+  a:hover {
+    cursor:pointer;
+   }
+  
+  /* Sidebar links */
+  .sidebar a {
     display: block;
-    padding: 5px;
-    transition: all 0.3s ease-in-out 0s;
-}
-.circle-tile-footer:hover {
-    background-color: rgba(0, 0, 0, 0.2);
-    color: rgba(255, 255, 255, 0.5);
+    color: black;
+    padding: 16px;
     text-decoration: none;
-}
-.circle-tile-heading.dark-blue:hover {
-    background-color: #2E4154;
-}
-.circle-tile-heading.green:hover {
-    background-color: #138F77;
-}
-.circle-tile-heading.orange:hover {
-    background-color: #DA8C10;
-}
-.circle-tile-heading.blue:hover {
-    background-color: #2473A6;
-}
-.circle-tile-heading.red:hover {
-    background-color: #CF4435;
-}
-.circle-tile-heading.purple:hover {
-    background-color: #7F3D9B;
-}
-.tile-img {
-    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.9);
-}
-
-.dark-blue {
-    background-color: #34495E;
-}
-.green {
-    background-color: #16A085;
-}
-.blue {
-    background-color: #2980B9;
-}
-.orange {
-    background-color: #F39C12;
-}
-.red {
-    background-color: #E74C3C;
-}
-.purple {
-    background-color: #8E44AD;
-}
-.dark-gray {
-    background-color: #7F8C8D;
-}
-.gray {
-    background-color: #95A5A6;
-}
-.light-gray {
-    background-color: #BDC3C7;
-}
-.yellow {
-    background-color: #F1C40F;
-}
-.text-dark-blue {
-    color: #34495E;
-}
-.text-green {
-    color: #16A085;
-}
-.text-blue {
-    color: #2980B9;
-}
-.text-orange {
-    color: #F39C12;
-}
-.text-red {
-    color: #E74C3C;
-}
-.text-purple {
-    color: #8E44AD;
-}
-.text-faded {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-
+  }
   
+
+  /* The current link that i have put  */
+  Active/current link 
+    .sidebar a.active {
+     background-color: #4CAF50; 
+     color: white; 
+  } 
   
+  /* Links on mouse-over */
+  .sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  }
+  
+  /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+  div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 500px;
+   
+  }
+  
+  /* On screens that are less than 700px wide, make the sidebar into a topbar */
+  @media screen and (max-width: 1500px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  }
+
+.header {
+  /* padding: 60px; */
+  /* background: #1abc9c; */
+  color: white;
+  font-size: 18px;
+  font-family: 'Courier New', Courier, monospace;
+}
+body, html {
+  height:100%;
+}
+
+/*
+ * Off Canvas sidebar at medium breakpoint
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 992px) {
+
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all 0.25s ease-out;
+    -moz-transition: all 0.25s ease-out;
+    transition: all 0.25s ease-out;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -33%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 33%;
+    margin-left: -6px;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 33%;
+    height: 100%;
+  }
+}
+
+/*
+ * Off Canvas wider at sm breakpoint
+ * --------------------------------------------------
+ */
+@media screen and (max-width: 34em) {
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -45%;
+  }
+
+  .row-offcanvas-left.active {
+    left: 45%;
+    margin-left: -6px;
+  }
+  
+  .sidebar-offcanvas {
+    width: 45%;
+  }
+}
+
+.card {
+    overflow:hidden;
+}
+
+.card-body .rotate {
+    z-index: 8;
+    float: right;
+    height: 100%;
+}
+
+.card-body .rotate i {
+    color: rgba(20, 20, 20, 0.15);
+    position: absolute;
+    left: 0;
+    left: auto;
+    right: -10px;
+    bottom: 0;
+    display: block;
+    -webkit-transform: rotate(-44deg);
+    -moz-transform: rotate(-44deg);
+    -o-transform: rotate(-44deg);
+    -ms-transform: rotate(-44deg);
+    transform: rotate(-44deg);
+}

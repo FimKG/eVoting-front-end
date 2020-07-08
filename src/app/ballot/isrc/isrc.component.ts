@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppservService} from '../../appserv.service';
+import {AppservService} from '../../services/appserv.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 //import {BallotComponent} from '../ballot.component'
@@ -12,19 +12,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class IsrcComponent implements OnInit {
 
   constructor(
-    //private b: BallotComponent,
     private router: Router,
     private bs: AppservService, 
+    private route: ActivatedRoute,
     private toastr: ToastrService) { }
 
   ngOnInit() {
     this.bs.getisrc().subscribe(response=>{this.isrc = response.data;});
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'csrc';
   }
 
   isrc = [];
   isrc_id: string = '';
   head_isrc = ['#','party Name','logo','vote'];
-  returnUrl = './ballot/csrc';
+  returnUrl :any;
 
   submit(){
     if(this.isValid() ==true){

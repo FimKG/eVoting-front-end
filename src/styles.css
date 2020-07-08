@@ -1,83 +1,64 @@
 ​
 /* Style by Kgaugelo */
 
-/*.overlay-container {
-   class="toast-center toast-container"></div></div> 
-  color: #fffa00;
+.heading {
+  /* text-align: center;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 100%; */
+  color: rgb(226, 27, 27);
+  /* height: 80px;
+  margin: 0 auto -40px;
+  position: relative;
+  transition: all 0.3s ease-in-out 0s;
+  width: 80px; */
+}
 
+.blue {
+  background-color: rgb(253, 0, 0);
+}
 
-  <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
-<link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
-}*/
+.headLinks {
+  color: rgb(85, 85, 85);
+  line-height: 10px;
+}
 
+.headLinks:hover {
+  background-color: rgb(230, 230, 230);
+  color: rgb(85, 85, 85);
+  text-decoration: none;
+}
 
-.h2, h2 {
+h2 {
+  margin: 0 0 15px;
   font-size: 50px;
 }
 
-/* .login-form {
-  width: 750px;
-  margin: 30px auto;
-} */
-/* ================================================= */
-
-  /* .form {        
-    margin-bottom: 15px;
-    margin-top: 15px;
-      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-      padding: 30px;
-  } */
-
-/* ====================================== */
-
- h2 {
-      margin: 0 0 15px;
-  }
-  /* .form-control{
-      min-height: 38px;
-      border-radius: 2px;
-  } */
-  /* .input-group-addon .fa {
-      font-size: 18px;
-  } */
+.form-control {
+  border-radius: 10px;
+}
 
 a {
   color: #b3cde0;
 }
 
-footer {
-
-  background-color: #04396c;
-  bottom: 0;
-
-  color: rgb(255, 255, 255);
-  
-}
-
-ul :hover{
-  color:red;
+ul :hover {
+  color: red;
   text-decoration: none;
-  
 }
 
+.navb {
+  background-color: #04396c;
+}
 
 .bg-info {
   background-color: rgba(2, 87, 151)!important;
 }
 
-
 body {
-  /* background: url(/assets/img/mmm.jpg) no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: #b3cde0;
-  font-size: 16px;
-  
 }
 
 .img-logo {
@@ -85,19 +66,4 @@ body {
   width: 6%;
 }
 
-
-/* 
-  .toast-top-center {
-    top: 0;
-    right: 0;
-    width: 100%;
-  } */
-
 /* End Style by Kgaugelo */
-
-
-
-/* Start by perfect Thabiso */
-
-
-/* END BY PERFECT THABSIO */

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AppservService} from '../../appserv.service';
+import {AppservService} from '../../services/appserv.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 //import {BallotComponent} from '../ballot.component'
@@ -15,15 +15,27 @@ export class CsrcComponent implements OnInit {
     //private b: BallotComponent,
     private router: Router,
     private bs: AppservService, 
+    private route: ActivatedRoute,
     private toastr: ToastrService) { }
 
   ngOnInit() {
+
+    /*Storing User Token details HTTP Authentication!!*/
+
+
+
+
+
+
+
     this.bs.getsrc().subscribe(response=>{this.src = response.data;});
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'sfc';
   }
 
   src = [];
   csrc_id: string = '';
-  returnUrl = './ballot/sfc';
+  returnUrl:any;
+  usersSession: any;
 
   submit(){
     if(this.isValid() ==true){

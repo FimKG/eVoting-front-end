@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { AppservService } from '../../appserv.service';
-import { first } from 'rxjs/operators';
+import { AppservService } from 'src/app/services/appserv.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AlertService } from '../../_services';
 
 @Component({
   selector: 'app-admin-login',
@@ -18,7 +16,7 @@ export class AdminLoginComponent implements OnInit {
   returnUrl: any;
   adm_id: '';
   password: '';
-  error: any;
+  setError: any;
   loading = false;
   submitted = false;
 
@@ -27,8 +25,7 @@ export class AdminLoginComponent implements OnInit {
     private adminFrm: FormBuilder,
     private adminservice: AppservService,
     private router: Router,
-    private toastr: ToastrService,
-    private alert: AlertService
+    private toastr: ToastrService
 
   ) { }
 
@@ -36,51 +33,34 @@ export class AdminLoginComponent implements OnInit {
 
     this.adminLogin = this.adminFrm.group({
       adm_id: ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]],
-      password: ['', [Validators.required, Validators.minLength(9)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'adminpanel';
   }
 
-  requestOTP() {
-    this.adminservice.requestOTP(this.adm_id);
-    //   return this.loginservice.sendEmailOTP(this.student_id).pipe(first()).subscribe()
-  }
-
-
   adminReg() {
-
     this.submitted = true;
 
     // stop here if form is invalid
     if (this.adminLogin.invalid) {
       return;
     }
-
-    this.loading = true;
-    // =============================================================
-    this.adminservice.userLogin(this.adm_id, this.password)
-    // ==============================================================
-      .pipe(first())
-      .subscribe(
-        data => {
-
-          if (data.status == 200) {
-            //Send user id
-            this.adminservice.set_user(Number(this.adm_id));
-
-            this.toastr.success(data.message);
-
-          } else if (data.status == 401) {
-            this.error = data.message;
-          }
-
-        }, error => {
-          this.error = error.message;
-          this.alert.error(error);
+    
+    this.adminservice.adminLogin(this.adminLogin.value.adm_id, this.adminLogin.value.password).subscribe(
+      data => {
+        this.loading = true;
+        if (data.status == 200) {
+          this.toastr.success(data.message);
+          this.router.navigate([this.returnUrl]);
+        } else if (data.status == 401) {
+          this.setError = data.message;
           this.loading = false;
-
-        })
-
+        }
+      }, error => {
+        this.setError = "Error: ", error.message;
+        this.loading = false;
+        this.submitted = false;
+      })
   }
 
 }

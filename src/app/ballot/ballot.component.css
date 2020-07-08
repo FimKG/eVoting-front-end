@@ -1,4 +1,4 @@
-img {
+/* img {
     border-radius: 50%;
   }
   .my-card
@@ -7,4 +7,8 @@ img {
     left:40%;
     top:-20px;
     border-radius:50%;
+} */
+
+.fontsizeb {
+  font-size: large;
 }

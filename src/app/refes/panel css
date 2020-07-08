@@ -1,0 +1,6 @@
+.panel-title {
+    font-size: 72px;
+    font-weight: bold;
+    line-height: 45px;
+    padding-top: 20px;
+}

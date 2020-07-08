@@ -1,0 +1,28 @@
+router.get('/dropdown/:fac_id', function (req, res) {
+
+    var fac_id = req.params.fac_id;
+
+    db.query("SELECT * FROM sfc WHERE fac_id= " + fac_id, function (error, rows) {
+        if (error) {
+            res.send({
+                status: 400,
+                message: "SFC invalid: " + fac_id + " Selection"
+            })
+            console.log('error occur');
+        }
+        else if (fac_id) {
+            res.send({
+                    data: rows,
+                    message: "Got all Faculty at: " + fac_id,
+                    status: 200
+                }
+            )
+        } else {
+            res.send({
+                data: error,
+                message: "No faculty member found on"
+            })
+        }
+    })
+
+});

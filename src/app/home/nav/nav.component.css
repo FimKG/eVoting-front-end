@@ -1,3 +1,17 @@
-/* .nav-left {
-    float: right;
-  } */
+.dropdown-menu {
+  color: red;
+  cursor: pointer;
+  margin-top: 20px;
+  background-color: rgb(55, 72, 87);
+}
+
+.dropdown {
+  color: #b3cde0;
+  cursor: pointer;
+}
+
+/* border-top-left-radius: 0;
+border-top-right-radius: 0;
+background-color: #fff;
+-webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+box-shadow: 0 6px 12px rgba(0,0,0,.175); */
