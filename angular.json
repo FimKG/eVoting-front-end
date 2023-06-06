@@ -41,7 +41,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -123,5 +122,7 @@
         }
       }
     }},
-  "defaultProject": "E-voting"
+  "cli": {
+    "analytics": "9926cd13-fcbd-4c5e-8eaa-9c400a1243ca"
+  }
 }
